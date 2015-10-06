@@ -108,6 +108,9 @@
     <Compile Include="FunctionRegression\ParameterSamplingInfo.cs" />
     <Compile Include="FunctionRegression\FunctionRegressionExperiment.cs" />
     <Compile Include="INeatExperiment.cs" />
+    <Compile Include="Mine\DataRow.cs" />
+    <Compile Include="Mine\Dataset.cs" />
+    <Compile Include="Mine\DataProvider.cs" />
     <Compile Include="Mine\Iris\Iris.cs" />
     <Compile Include="Mine\Iris\IrisBlackBoxEvaluator.cs" />
     <Compile Include="Mine\Iris\IrisDataNormalizer.cs" />

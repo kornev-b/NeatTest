@@ -41,7 +41,7 @@ namespace SharpNeat.Domains.Mine.Iris
 
         public int InputCount
         {
-            get { return 11; }
+            get { return 4; }
         }
 
         public string Name
@@ -61,7 +61,7 @@ namespace SharpNeat.Domains.Mine.Iris
 
         public int OutputCount
         {
-            get { return 1; }
+            get { return 3; }
         }
 
         public void Initialize(string name, XmlElement xmlConfig)

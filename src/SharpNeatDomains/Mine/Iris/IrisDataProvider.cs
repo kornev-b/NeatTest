@@ -1,22 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SharpNeat.Domains.Mine.Iris
 {
-    class IrisDataProvider
+    class IrisDataProvider : DataProvider
     {
-        private static List<Iris> cache;
+        private static List<Dataset> cache;
 
-        public static List<Iris> getIrisData()
+        protected override string assertDelimeter()
         {
-            if (cache == null)
+            return ",";
+        }
+
+        protected override string assertFileName()
+        {
+            return @"K:\nn\SharpNeat\src\iris.data.txt";
+        }
+
+        protected override int assertInputsCount()
+        {
+            return 4;
+        }
+
+        protected override int assertOutputsCount()
+        {
+            return 3;
+        }
+
+        protected override DataRow parseDataRow(string[] fields)
+        {
+            DataRow row = new DataRow();
+            var inputs = new List<double>(InputsCount);
+            
+            for (int i = 0; i < InputsCount; i++)
             {
-                cache = new IrisDataReader().readIrisData(@"K:\nn\SharpNeat\src\iris.data.txt");
-                //cache = new IrisDataNormalizer().normalize(cache);
+                double parsed = GetDouble(fields[i], 0);
+                inputs.Add(parsed);
             }
-            return cache;
+            row.Inputs = inputs;
+            double output = GetDoubleOutput(fields[fields.Length - 1], 0);
+            var outputs = ConvertToBinaryOrderedList(output);
+            row.Outputs = outputs;
+            return row;
+        }
+
+        private double GetDoubleOutput(string text, int defaultValue)
+        {
+            if (text.Equals("Iris-setosa"))
+            {
+                return 0;
+            }
+            if (text.Equals("Iris-versicolor"))
+            {
+                return 1;
+            }
+            if (text.Equals("Iris-virginica"))
+            {
+                return 2;
+            }
+            return defaultValue;
         }
     }
 }
