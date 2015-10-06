@@ -105,6 +105,7 @@ namespace SharpNeat.Domains.Classification.Iris
             {
                 fitness = 0;
             }
+        
             if (accuracy >= AcceptedAccuracy)
             {
                 _stopConditionSatisfied = true;
