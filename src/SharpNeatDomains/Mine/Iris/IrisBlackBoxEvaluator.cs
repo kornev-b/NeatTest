@@ -1,6 +1,7 @@
 ﻿using SharpNeat.Core;
 using SharpNeat.Phenomes;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace SharpNeat.Domains.Mine.Iris
@@ -9,7 +10,7 @@ namespace SharpNeat.Domains.Mine.Iris
     {
         ulong _evalCount;
         bool _stopConditionSatisfied;
-        const int AcceptedAccuracy = 90; // in percent
+        const int AcceptedAccuracy = 95; // in percent
         IrisDataProvider dataProvider = new IrisDataProvider();
 
         public ulong EvaluationCount
@@ -89,12 +90,25 @@ namespace SharpNeat.Domains.Mine.Iris
             // negative values and relevant values
             var recall = TP/(TP + FN);
             var accuracy = (TP + TN)/(TP + TN + FP + FN);
-            var FMeasure = 2*(precision*recall/(precision + recall));
+            double FMeasure;
+            if (precision + recall == 0)
+            {
+                FMeasure = 0d;
+            }
+            else
+            {
+             FMeasure = 2 * (precision * recall / (precision + recall));
+            }
+            double fitness = FMeasure;
+            if (fitness < 0.0 || double.IsNaN(fitness) || double.IsInfinity(fitness))
+            {
+                fitness = 0;
+            }
             if (accuracy >= AcceptedAccuracy)
             {
                 _stopConditionSatisfied = true;
             }
-            return new FitnessInfo(accuracy, accuracy);
+            return new FitnessInfo(fitness, fitness);
         }
 
         private double[] activate(IBlackBox box, IList<double> inputs, double[] outputs)
@@ -132,6 +146,10 @@ namespace SharpNeat.Domains.Mine.Iris
         {
             var binOutput = binarize(output);
             var binExpected = binarize(expected);
+//            if (output < 0.5)
+//            {
+//                Debug.WriteLine("Output less than 0.5: " + output);
+//            }
             bool isCorrect = binOutput == binExpected;
             if (binOutput == 1)
             {
