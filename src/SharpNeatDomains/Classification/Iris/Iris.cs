@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SharpNeat.Domains.Mine.Iris
+﻿namespace SharpNeat.Domains.Mine.Iris
 {
     class Iris
     {

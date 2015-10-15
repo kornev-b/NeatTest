@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using SharpNeat.Domains.Mine;
 
 namespace SharpNeat.Domains.Classification.Iris
 {
@@ -9,12 +8,12 @@ namespace SharpNeat.Domains.Classification.Iris
 
         protected override string assertDelimeter()
         {
-            return ",";
+            return ";";
         }
 
         protected override string assertFileName()
         {
-            return @"K:\nn\SharpNeat\src\iris.data.txt";
+            return @"K:\nn\SharpNeat\NeatTest\src\iris.data.txt";
         }
 
         protected override int assertInputsCount()
@@ -31,34 +30,24 @@ namespace SharpNeat.Domains.Classification.Iris
         {
             DataRow row = new DataRow();
             var inputs = new List<double>(InputsCount);
+            var outputs = new List<double>(OutputsCount);
             
-            for (int i = 0; i < InputsCount; i++)
+            for (int i = 0; i < fields.Length; i++)
             {
                 double parsed = GetDouble(fields[i], 0);
-                inputs.Add(parsed);
+                if (i < InputsCount)
+                {
+                    inputs.Add(parsed);
+                }
+                else
+                {
+                    outputs.Add(parsed);
+                }
+
             }
             row.Inputs = inputs;
-            double output = GetDoubleOutput(fields[fields.Length - 1], 0);
-            var outputs = ConvertToBinaryOrderedList(output);
             row.Outputs = outputs;
             return row;
-        }
-
-        private double GetDoubleOutput(string text, int defaultValue)
-        {
-            if (text.Equals("Iris-setosa"))
-            {
-                return 0;
-            }
-            if (text.Equals("Iris-versicolor"))
-            {
-                return 1;
-            }
-            if (text.Equals("Iris-virginica"))
-            {
-                return 2;
-            }
-            return defaultValue;
         }
     }
 }

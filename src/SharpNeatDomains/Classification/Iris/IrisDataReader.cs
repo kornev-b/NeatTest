@@ -50,11 +50,11 @@ namespace SharpNeat.Domains.Classification.Iris
             double result;
 
             //Try parsing in US english
-            if (!double.TryParse(value, System.Globalization.NumberStyles.Any, CultureInfo.GetCultureInfo("en-US"), out result) &&
+            if (!double.TryParse(value, NumberStyles.Any, CultureInfo.GetCultureInfo("en-US"), out result) &&
                 // Then try in the current culture
-                !double.TryParse(value, System.Globalization.NumberStyles.Any, CultureInfo.CurrentCulture, out result) &&
+                !double.TryParse(value, NumberStyles.Any, CultureInfo.CurrentCulture, out result) &&
                 //Then in neutral language
-                !double.TryParse(value, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out result))
+                !double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
             {
                 result = defaultValue;
             }
