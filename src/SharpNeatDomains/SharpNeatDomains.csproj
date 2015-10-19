@@ -68,6 +68,9 @@
     <Compile Include="BoxesVisualDiscrimination\BoxesVisualDiscriminationEvaluator.cs" />
     <Compile Include="Classification\EvaluateInfo.cs" />
     <Compile Include="Classification\Evaluator.cs" />
+    <Compile Include="Classification\Wine\WineDataProvider.cs" />
+    <Compile Include="Classification\Wine\WineEvaluator.cs" />
+    <Compile Include="Classification\Wine\WineExperiment.cs" />
     <Compile Include="FunctionRegression\AbsFunction.cs" />
     <Compile Include="FunctionRegression\LogFunction.cs" />
     <Compile Include="FunctionRegression\RbfFunctionRegressionExperiment.cs" />
@@ -110,9 +113,9 @@
     <Compile Include="FunctionRegression\ParameterSamplingInfo.cs" />
     <Compile Include="FunctionRegression\FunctionRegressionExperiment.cs" />
     <Compile Include="INeatExperiment.cs" />
-    <Compile Include="Classification\DataRow.cs" />
-    <Compile Include="Classification\Dataset.cs" />
-    <Compile Include="Classification\DataProvider.cs" />
+    <Compile Include="DataRow.cs" />
+    <Compile Include="Dataset.cs" />
+    <Compile Include="DataProvider.cs" />
     <Compile Include="Classification\Iris\Iris.cs" />
     <Compile Include="Classification\Iris\IrisBlackBoxEvaluator.cs" />
     <Compile Include="Classification\Iris\IrisDataNormalizer.cs" />

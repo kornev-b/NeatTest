@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.VisualBasic.FileIO;
+using SharpNeat.Domains.Classification;
 
-namespace SharpNeat.Domains.Classification
+namespace SharpNeat.Domains
 {
     public abstract class DataProvider
     {

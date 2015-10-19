@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SharpNeat.Domains.Classification
+namespace SharpNeat.Domains
 {
     public class Dataset
     {
