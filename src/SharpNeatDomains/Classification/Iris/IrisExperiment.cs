@@ -10,6 +10,7 @@ using SharpNeat.EvolutionAlgorithms.ComplexityRegulation;
 using SharpNeat.Genomes.Neat;
 using SharpNeat.Phenomes;
 using SharpNeat.SpeciationStrategies;
+using System;
 
 namespace SharpNeat.Domains.Classification.Iris
 {
@@ -25,6 +26,8 @@ namespace SharpNeat.Domains.Classification.Iris
         int? _complexityThreshold;
         string _description;
         ParallelOptions _parallelOptions;
+        Fitness _fitness = Fitness.FMEASURE;
+        string _trainFilePath;
 
         public int DefaultPopulationSize
         {
@@ -71,6 +74,8 @@ namespace SharpNeat.Domains.Classification.Iris
             _complexityThreshold = XmlUtils.TryGetValueAsInt(xmlConfig, "ComplexityThreshold");
             _description = XmlUtils.TryGetValueAsString(xmlConfig, "Description");
             _parallelOptions = ExperimentUtils.ReadParallelOptions(xmlConfig);
+            _fitness = (Fitness)Enum.Parse(typeof(Fitness), XmlUtils.TryGetValueAsString(xmlConfig, "Fitness"), true);
+            _trainFilePath = XmlUtils.TryGetValueAsString(xmlConfig, "Dataset");
 
             _eaParams = new NeatEvolutionAlgorithmParameters();
             _eaParams.SpecieCount = _specieCount;
@@ -120,6 +125,10 @@ namespace SharpNeat.Domains.Classification.Iris
 
             // Create IBlackBox evaluator.
             IrisBlackBoxEvaluator evaluator = new IrisBlackBoxEvaluator();
+            IrisDataProvider dataProvider = new IrisDataProvider();
+            dataProvider.Filename = _trainFilePath;
+            evaluator.DataProvider = dataProvider;
+            evaluator.Fitness = _fitness;
 
             // Create genome decoder.
             IGenomeDecoder<NeatGenome, IBlackBox> genomeDecoder = CreateGenomeDecoder();

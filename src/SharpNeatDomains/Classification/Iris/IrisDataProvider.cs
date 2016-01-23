@@ -6,6 +6,8 @@ namespace SharpNeat.Domains.Classification.Iris
     {
         private static List<Dataset> cache;
 
+        public string Filename { get; set; }
+
         protected override string assertDelimeter()
         {
             return ";";
@@ -13,7 +15,7 @@ namespace SharpNeat.Domains.Classification.Iris
 
         protected override string assertFileName()
         {
-            return @"K:\nn\SharpNeat\NeatTest\src\datasets\iris.data.txt";
+            return @Filename;
         }
 
         protected override int assertInputsCount()
