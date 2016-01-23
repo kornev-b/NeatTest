@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Experiments>
+  <Experiment name="IrisFold0Accuracy">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>Accuracy</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.0.txt</Dataset>
+    </Config>
+  </Experiment> 
+    <Experiment name="IrisFold0Precision">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>Precision</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.0.txt</Dataset>
+    </Config>
+  </Experiment> 
+    <Experiment name="IrisFold0FRecall">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>Recall</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.0.txt</Dataset>
+    </Config>
+  </Experiment> 
+    <Experiment name="IrisFold0FMeasure">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>FMeasure</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.0.txt</Dataset>
+    </Config>
+  </Experiment> 
+
+    <Experiment name="IrisFold1Accuracy">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>Accuracy</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.1.txt</Dataset>
+    </Config>
+  </Experiment> 
+    <Experiment name="IrisFold1Precision">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>Precision</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.1.txt</Dataset>
+    </Config>
+  </Experiment> 
+    <Experiment name="IrisFold1FRecall">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>Recall</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.1.txt</Dataset>
+    </Config>
+  </Experiment> 
+    <Experiment name="IrisFold1FMeasure">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>FMeasure</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.1.txt</Dataset>
+    </Config>
+  </Experiment> 
+
+    <Experiment name="IrisFold2Accuracy">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>Accuracy</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.2.txt</Dataset>
+    </Config>
+  </Experiment> 
+    <Experiment name="IrisFold2Precision">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>Precision</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.2.txt</Dataset>
+    </Config>
+  </Experiment> 
+    <Experiment name="IrisFold2FRecall">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>Recall</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.2.txt</Dataset>
+    </Config>
+  </Experiment> 
+    <Experiment name="IrisFold2FMeasure">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>FMeasure</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.2.txt</Dataset>
+    </Config>
+  </Experiment> 
+
+    <Experiment name="IrisFold3Accuracy">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>Accuracy</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.3.txt</Dataset>
+    </Config>
+  </Experiment> 
+    <Experiment name="IrisFold3Precision">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>Precision</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.3.txt</Dataset>
+    </Config>
+  </Experiment> 
+    <Experiment name="IrisFold3FRecall">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>Recall</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.3.txt</Dataset>
+    </Config>
+  </Experiment> 
+    <Experiment name="IrisFold3FMeasure">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>FMeasure</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.3.txt</Dataset>
+    </Config>
+  </Experiment> 
+
+    <Experiment name="IrisFold4Accuracy">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>Accuracy</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.4.txt</Dataset>
+    </Config>
+  </Experiment> 
+    <Experiment name="IrisFold4Precision">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>Precision</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.4.txt</Dataset>
+    </Config>
+  </Experiment> 
+    <Experiment name="IrisFold4FRecall">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>Recall</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.4.txt</Dataset>
+    </Config>
+  </Experiment> 
+    <Experiment name="IrisFold4FMeasure">
+    <AssemblyPath>SharpNeatDomains.dll</AssemblyPath>
+    <ClassName>SharpNeat.Domains.Classification.Iris.IrisExperiment</ClassName>
+    <Config>
+      <PopulationSize>500</PopulationSize>
+      <SpecieCount>100</SpecieCount>
+      <Activation>
+        <Scheme>Acyclic</Scheme>
+      </Activation>
+      <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+      <ComplexityThreshold>1000000</ComplexityThreshold>
+      <Description>
+        Iris flower classifier.
+      </Description>
+      <Fitness>FMeasure</Fitness>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.4.txt</Dataset>
+    </Config>
+  </Experiment> 
+</Experiments>
