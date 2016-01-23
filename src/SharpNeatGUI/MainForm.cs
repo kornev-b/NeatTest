@@ -744,6 +744,7 @@ namespace SharpNeatGUI
                 // Save genome to xml file.
                 using(XmlWriter xw = XmlWriter.Create(filePath, _xwSettings))
                 {
+                    string spath = filePath.Insert(filePath.LastIndexOf("\\") + 1, "simple_");
                     SimpleGenomeSaver.saveGenome("simple_" + filePath, _ea.CurrentChampGenome);
                     experiment.SavePopulation(xw, new NeatGenome[] {_ea.CurrentChampGenome});
                 }

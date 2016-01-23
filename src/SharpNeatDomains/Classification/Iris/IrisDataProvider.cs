@@ -13,7 +13,7 @@ namespace SharpNeat.Domains.Classification.Iris
 
         protected override string assertFileName()
         {
-            return @"K:\nn\SharpNeat\NeatTest\src\datasets\iris.data.txt";
+            return @"C:\Users\bkornev\Desktop\projects\NeatTest\src\datasets\iris\iris.train.fold.0.txt";
         }
 
         protected override int assertInputsCount()
