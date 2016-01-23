@@ -745,7 +745,7 @@ namespace SharpNeatGUI
                 using(XmlWriter xw = XmlWriter.Create(filePath, _xwSettings))
                 {
                     string spath = filePath.Insert(filePath.LastIndexOf("\\") + 1, "simple_");
-                    SimpleGenomeSaver.saveGenome("simple_" + filePath, _ea.CurrentChampGenome);
+                    SimpleGenomeSaver.saveGenome(spath, _ea.CurrentChampGenome);
                     experiment.SavePopulation(xw, new NeatGenome[] {_ea.CurrentChampGenome});
                 }
             }
