@@ -63,6 +63,7 @@
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="HSLColor.cs" />
+    <Compile Include="SimpleGenomeSaver.cs" />
     <Compile Include="SummaryGraphForm.cs">
       <SubType>Form</SubType>
     </Compile>

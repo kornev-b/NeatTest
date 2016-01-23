@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <ActivationFunctions>
+    <Fn id="0" name="SteepenedSigmoid" prob="1" />
+  </ActivationFunctions>
+  <Networks>
+    <Network id="470825" birthGen="1173" fitness="0.99166666666666659">
+      <Nodes>
+        <Node type="bias" id="0" />
+        <Node type="in" id="1" />
+        <Node type="in" id="2" />
+        <Node type="in" id="3" />
+        <Node type="in" id="4" />
+        <Node type="out" id="5" />
+        <Node type="out" id="6" />
+        <Node type="out" id="7" />
+        <Node type="hid" id="48" />
+        <Node type="hid" id="113" />
+        <Node type="hid" id="278" />
+        <Node type="hid" id="308" />
+        <Node type="hid" id="514" />
+        <Node type="hid" id="675" />
+      </Nodes>
+      <Connections>
+        <Con id="12" src="1" tgt="6" wght="0.34690475810743127" />
+        <Con id="17" src="3" tgt="5" wght="0.56546237414988121" />
+        <Con id="23" src="3" tgt="6" wght="-1.4292122298528542" />
+        <Con id="24" src="2" tgt="5" wght="-0.15072989512292168" />
+        <Con id="25" src="0" tgt="5" wght="-4.970885697348784" />
+        <Con id="27" src="4" tgt="6" wght="2.23418967079658" />
+        <Con id="28" src="1" tgt="5" wght="-0.24816149590252307" />
+        <Con id="29" src="2" tgt="6" wght="-1.9272705152169565" />
+        <Con id="30" src="4" tgt="5" wght="3.3245364798091726" />
+        <Con id="49" src="4" tgt="48" wght="3.7523771724028459" />
+        <Con id="50" src="48" tgt="5" wght="-1.381618669256568" />
+        <Con id="58" src="4" tgt="7" wght="-3.2216188467310265" />
+        <Con id="65" src="1" tgt="7" wght="0.7532905053994392" />
+        <Con id="66" src="3" tgt="7" wght="-1.4318636114961221" />
+        <Con id="89" src="48" tgt="6" wght="5" />
+        <Con id="103" src="0" tgt="7" wght="-3.4916810195749148" />
+        <Con id="114" src="1" tgt="113" wght="-1.9298848670791913" />
+        <Con id="115" src="113" tgt="5" wght="4.2572913900028961" />
+        <Con id="128" src="2" tgt="7" wght="0.95730042093864831" />
+        <Con id="137" src="48" tgt="7" wght="-3.765674344609935" />
+        <Con id="174" src="113" tgt="7" wght="3.1477321554215942" />
+        <Con id="235" src="2" tgt="48" wght="-2.6183998855261037" />
+        <Con id="255" src="113" tgt="6" wght="-4.1430187252256978" />
+        <Con id="258" src="3" tgt="48" wght="4.9421180493974575" />
+        <Con id="264" src="0" tgt="48" wght="-1.4715512981638312" />
+        <Con id="279" src="3" tgt="278" wght="0.29067857721581591" />
+        <Con id="280" src="278" tgt="48" wght="-2.745769940059561" />
+        <Con id="287" src="3" tgt="113" wght="2.6865260681128129" />
+        <Con id="309" src="2" tgt="308" wght="3.3324692629108394" />
+        <Con id="310" src="308" tgt="7" wght="3.8315657976077362" />
+        <Con id="318" src="0" tgt="113" wght="-2.4238161181756355" />
+        <Con id="331" src="48" tgt="113" wght="3.4755111213633914" />
+        <Con id="355" src="2" tgt="113" wght="-3.03898724271251" />
+        <Con id="437" src="0" tgt="308" wght="3.9746037868087916" />
+        <Con id="463" src="278" tgt="6" wght="3.1123397891887037" />
+        <Con id="481" src="308" tgt="113" wght="2.0729182288065315" />
+        <Con id="515" src="48" tgt="514" wght="0.65153653042409565" />
+        <Con id="516" src="514" tgt="7" wght="-0.074930929308662353" />
+        <Con id="539" src="278" tgt="113" wght="2.8590642346220076" />
+        <Con id="574" src="48" tgt="308" wght="2.5474163681709241" />
+        <Con id="591" src="4" tgt="278" wght="-1.424205806254887" />
+        <Con id="600" src="2" tgt="278" wght="0.3517602259253908" />
+        <Con id="618" src="308" tgt="514" wght="-1.9570562969065746" />
+        <Con id="676" src="1" tgt="675" wght="-3.5093582843760673" />
+        <Con id="677" src="675" tgt="48" wght="1.8364619399184348" />
+        <Con id="1130" src="3" tgt="514" wght="-2.4941912788764511" />
+        <Con id="1131" src="278" tgt="308" wght="2.5111106428543244" />
+      </Connections>
+    </Network>
+  </Networks>
+</Root>

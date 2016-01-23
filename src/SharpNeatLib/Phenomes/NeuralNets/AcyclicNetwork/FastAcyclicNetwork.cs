@@ -58,7 +58,7 @@ namespace SharpNeat.Phenomes.NeuralNets
         /// <summary>
         /// Array of connections.
         /// </summary>
-        readonly FastConnection[] _connectionArr;
+        FastConnection[] _connectionArr;
         /// <summary>
         /// Array of layer information. Feedforward-only network activation can be performed most 
         /// efficiently by propogating signals through the network one layer at a time.
@@ -75,12 +75,17 @@ namespace SharpNeat.Phenomes.NeuralNets
         // Wrappers over _activationArr that map between black box inputs/outputs to the
         // corresponding underlying node activation levels.
         readonly SignalArray _inputSignalArrayWrapper;
-        readonly MappingSignalArray _outputSignalArrayWrapper;
+        MappingSignalArray _outputSignalArrayWrapper;
 
         // Convenient counts.
         readonly int _inputNodeCount;
         readonly int _outputNodeCount;
         readonly int _inputAndBiasNodeCount;
+
+        int[] _outputNodeIdexArray;
+
+        private int _nodesCount;
+
 
         #region Constructor
 
@@ -107,6 +112,7 @@ namespace SharpNeat.Phenomes.NeuralNets
                                   int inputNodeCount,
                                   int outputNodeCount)
         {
+            _nodesCount = nodeCount;
             // Store refs to network structrue data.
             _nodeActivationFnArr = nodeActivationFnArr;
             _nodeAuxArgsArr = nodeAuxArgsArr;
@@ -125,19 +131,38 @@ namespace SharpNeat.Phenomes.NeuralNets
             // positions are indicated by outputNodeIdxArr, and so we package up this array with the node signal
             // array to abstract away the level of indirection described by outputNodeIdxArr.
             _outputSignalArrayWrapper = new MappingSignalArray(_activationArr, outputNodeIdxArr);
-
             // Store counts for use during activation.
             _inputNodeCount = inputNodeCount;
             _inputAndBiasNodeCount = inputNodeCount+1;
             _outputNodeCount = outputNodeCount;
-
+            _outputNodeIdexArray = outputNodeIdxArr;
             // Initialise the bias neuron's fixed output value.
             _activationArr[0] = 1.0;
+        }
+
+        public int NodesCount
+        {
+            get { return _nodesCount; }
         }
 
         #endregion
 
         #region IBlackBox Members
+
+        public int[] OutputIdxArray
+        {
+            get { return _outputNodeIdexArray; }
+        }
+
+        public FastConnection[] Connections
+        {
+            get { return _connectionArr; }
+        }
+
+        public LayerInfo[] LayersInfo
+        {
+            get { return _layerInfoArr; }
+        }
 
         /// <summary>
         /// Gets the number of inputs.

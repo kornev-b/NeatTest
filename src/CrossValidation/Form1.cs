@@ -48,7 +48,7 @@ namespace CrossValidation
                     var genomeDecoder = new NeatGenomeDecoder(_activationScheme);
 
                     // Decode the genome into a phenome (neural network).
-                    phenome = genomeDecoder.Decode(genome);
+                    phenome = genomeDecoder.Decode(genome);                    
                     neatGenomeView1.RefreshView(genome);
                 }
             }

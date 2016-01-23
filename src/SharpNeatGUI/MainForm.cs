@@ -717,7 +717,6 @@ namespace SharpNeatGUI
             {
                 // Get the currently selected experiment.
                 INeatExperiment experiment = GetSelectedExperiment();
-
                 // Save genomes to xml file.
                 using(XmlWriter xw = XmlWriter.Create(popFilePath, _xwSettings))
                 {
@@ -745,6 +744,7 @@ namespace SharpNeatGUI
                 // Save genome to xml file.
                 using(XmlWriter xw = XmlWriter.Create(filePath, _xwSettings))
                 {
+                    SimpleGenomeSaver.saveGenome("simple_" + filePath, _ea.CurrentChampGenome);
                     experiment.SavePopulation(xw, new NeatGenome[] {_ea.CurrentChampGenome});
                 }
             }
@@ -1469,6 +1469,7 @@ namespace SharpNeatGUI
                         // Save genome to xml file.
                         using(XmlWriter xw = XmlWriter.Create(filename, _xwSettings))
                         {
+                            SimpleGenomeSaver.saveGenome("simple_" + filename, champGenome);
                             experiment.SavePopulation(xw, new NeatGenome[] {champGenome});
                         }
                     }
