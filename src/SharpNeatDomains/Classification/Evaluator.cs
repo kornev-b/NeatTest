@@ -61,13 +61,13 @@ namespace SharpNeat.Domains.Classification
             var FN = FNs.Average();
 
             EvaluateInfo info = new EvaluateInfo();
+            info.CorrectlyClassified = correctlyClassified;
+            info.IncorrectlyClassified = incorrectlyClassified;
             info.TP = TP;
             info.TN = TN;
             info.FP = FP;
             info.FN = FN;
             info.Calculate();
-            info.CorrectlyClassified = correctlyClassified;
-            info.IncorrectlyClassified = incorrectlyClassified;
 
             return info;
         }

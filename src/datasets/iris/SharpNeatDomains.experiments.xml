@@ -15,7 +15,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>Accuracy</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.0.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.0.txt</Dataset>
     </Config>
   </Experiment> 
     <Experiment name="IrisFold0Precision">
@@ -33,7 +33,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>Precision</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.0.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.0.txt</Dataset>
     </Config>
   </Experiment> 
     <Experiment name="IrisFold0FRecall">
@@ -51,7 +51,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>Recall</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.0.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.0.txt</Dataset>
     </Config>
   </Experiment> 
     <Experiment name="IrisFold0FMeasure">
@@ -69,7 +69,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>FMeasure</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.0.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.0.txt</Dataset>
     </Config>
   </Experiment> 
 
@@ -88,7 +88,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>Accuracy</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.1.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.1.txt</Dataset>
     </Config>
   </Experiment> 
     <Experiment name="IrisFold1Precision">
@@ -106,7 +106,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>Precision</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.1.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.1.txt</Dataset>
     </Config>
   </Experiment> 
     <Experiment name="IrisFold1FRecall">
@@ -124,7 +124,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>Recall</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.1.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.1.txt</Dataset>
     </Config>
   </Experiment> 
     <Experiment name="IrisFold1FMeasure">
@@ -142,7 +142,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>FMeasure</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.1.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.1.txt</Dataset>
     </Config>
   </Experiment> 
 
@@ -161,7 +161,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>Accuracy</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.2.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.2.txt</Dataset>
     </Config>
   </Experiment> 
     <Experiment name="IrisFold2Precision">
@@ -179,7 +179,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>Precision</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.2.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.2.txt</Dataset>
     </Config>
   </Experiment> 
     <Experiment name="IrisFold2FRecall">
@@ -197,7 +197,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>Recall</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.2.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.2.txt</Dataset>
     </Config>
   </Experiment> 
     <Experiment name="IrisFold2FMeasure">
@@ -215,7 +215,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>FMeasure</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.2.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.2.txt</Dataset>
     </Config>
   </Experiment> 
 
@@ -234,7 +234,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>Accuracy</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.3.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.3.txt</Dataset>
     </Config>
   </Experiment> 
     <Experiment name="IrisFold3Precision">
@@ -252,7 +252,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>Precision</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.3.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.3.txt</Dataset>
     </Config>
   </Experiment> 
     <Experiment name="IrisFold3FRecall">
@@ -270,7 +270,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>Recall</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.3.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.3.txt</Dataset>
     </Config>
   </Experiment> 
     <Experiment name="IrisFold3FMeasure">
@@ -288,7 +288,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>FMeasure</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.3.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.3.txt</Dataset>
     </Config>
   </Experiment> 
 
@@ -307,7 +307,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>Accuracy</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.4.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.4.txt</Dataset>
     </Config>
   </Experiment> 
     <Experiment name="IrisFold4Precision">
@@ -325,7 +325,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>Precision</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.4.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.4.txt</Dataset>
     </Config>
   </Experiment> 
     <Experiment name="IrisFold4FRecall">
@@ -343,7 +343,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>Recall</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.4.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.4.txt</Dataset>
     </Config>
   </Experiment> 
     <Experiment name="IrisFold4FMeasure">
@@ -361,7 +361,7 @@
         Iris flower classifier.
       </Description>
       <Fitness>FMeasure</Fitness>
-      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.test.fold.4.txt</Dataset>
+      <Dataset>K:\nn\SharpNeat\NeatTest\src\datasets\iris\iris.train.fold.4.txt</Dataset>
     </Config>
   </Experiment> 
 </Experiments>
