@@ -30,7 +30,6 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.neatGenomeView1 = new SharpNeat.Domains.NeatGenomeView();
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -38,6 +37,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.neatGenomeView1 = new SharpNeat.Domains.NeatGenomeView();
             this.SuspendLayout();
             // 
             // button1
@@ -55,13 +55,6 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // neatGenomeView1
-            // 
-            this.neatGenomeView1.Location = new System.Drawing.Point(464, 12);
-            this.neatGenomeView1.Name = "neatGenomeView1";
-            this.neatGenomeView1.Size = new System.Drawing.Size(423, 392);
-            this.neatGenomeView1.TabIndex = 1;
             // 
             // label1
             // 
@@ -86,6 +79,7 @@
             // 
             // textBox1
             // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox1.Location = new System.Drawing.Point(95, 459);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
@@ -94,6 +88,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(22, 461);
             this.label2.Name = "label2";
@@ -103,6 +98,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(218, 461);
             this.label3.Name = "label3";
@@ -112,6 +108,7 @@
             // 
             // textBox2
             // 
+            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox2.Location = new System.Drawing.Point(298, 458);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
@@ -120,6 +117,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.Location = new System.Drawing.Point(22, 431);
@@ -128,6 +126,16 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "Dataset format: outputs follow inputs. \";\" symbol will be treated as a delimeter." +
     "";
+            // 
+            // neatGenomeView1
+            // 
+            this.neatGenomeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.neatGenomeView1.Location = new System.Drawing.Point(464, 12);
+            this.neatGenomeView1.Name = "neatGenomeView1";
+            this.neatGenomeView1.Size = new System.Drawing.Size(423, 392);
+            this.neatGenomeView1.TabIndex = 1;
             // 
             // Form1
             // 
