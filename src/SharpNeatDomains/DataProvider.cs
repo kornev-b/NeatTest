@@ -12,17 +12,23 @@ namespace SharpNeat.Domains
         protected int InputsCount { get; set; }
         protected int OutputsCount { get; set; }
 
+        private static Dataset cache;
+
         public DataProvider()
         {
             InputsCount = assertInputsCount();
             OutputsCount = assertOutputsCount();
         }
 
-        public Dataset getData()
+        public virtual Dataset getData()
         {
-            var data = new Dataset();
-            data.InputCount = assertInputsCount();
-            data.OutputCount = assertOutputsCount();
+            if (cache != null)
+            {
+                return cache;
+            }
+            cache = new Dataset();
+            cache.InputCount = assertInputsCount();
+            cache.OutputCount = assertOutputsCount();
             using (TextFieldParser parser = new TextFieldParser(assertFileName()))
             {
                 parser.TextFieldType = FieldType.Delimited;
@@ -31,10 +37,10 @@ namespace SharpNeat.Domains
                 {
                     string[] fields = parser.ReadFields();
                     DataRow dataRow = parseDataRow(fields);
-                    data.Add(dataRow);
+                    cache.Add(dataRow);
                 }
             }
-            return data;
+            return cache;
         }
 
         protected abstract DataRow parseDataRow(string[] fields);

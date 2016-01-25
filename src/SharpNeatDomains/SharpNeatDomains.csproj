@@ -66,8 +66,12 @@
     <Compile Include="BinaryThreeMultiplexer\BinaryThreeMultiplexerExperiment.cs" />
     <Compile Include="BinaryThreeMultiplexer\BinaryThreeMultiplexerEvaluator.cs" />
     <Compile Include="BoxesVisualDiscrimination\BoxesVisualDiscriminationEvaluator.cs" />
+    <Compile Include="Classification\Adult\AdultBlackBoxEvaluator.cs" />
+    <Compile Include="Classification\Adult\AdultDataProvider.cs" />
+    <Compile Include="Classification\Adult\AdultExperiment.cs" />
     <Compile Include="Classification\EvaluateInfo.cs" />
     <Compile Include="Classification\Evaluator.cs" />
+    <Compile Include="Classification\Fitness.cs" />
     <Compile Include="Classification\Wine\WineDataProvider.cs" />
     <Compile Include="Classification\Wine\WineEvaluator.cs" />
     <Compile Include="Classification\Wine\WineExperiment.cs" />

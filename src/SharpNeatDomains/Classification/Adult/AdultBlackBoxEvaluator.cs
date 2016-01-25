@@ -1,9 +1,13 @@
 ﻿using SharpNeat.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using SharpNeat.Phenomes;
 
-namespace SharpNeat.Domains.Classification.Iris
+namespace SharpNeat.Domains.Classification.Adult
 {
-    class IrisBlackBoxEvaluator : IPhenomeEvaluator<IBlackBox>
+    class AdultBlackBoxEvaluator : IPhenomeEvaluator<IBlackBox>
     {
         ulong _evalCount;
         bool _stopConditionSatisfied;
@@ -30,7 +34,7 @@ namespace SharpNeat.Domains.Classification.Iris
             _evalCount++;
             var dataset = DataProvider.getData();
             EvaluateInfo info = evaluator.Evaluate(box, dataset);
-        
+
             if (info.Accuracy >= AcceptedAccuracy)
             {
                 _stopConditionSatisfied = true;
@@ -52,9 +56,9 @@ namespace SharpNeat.Domains.Classification.Iris
                     break;
                 default:
                     fitness = info.FMeasure;
-                    break;                
+                    break;
             }
-             
+
             return new FitnessInfo(fitness, fitness);
         }
 
