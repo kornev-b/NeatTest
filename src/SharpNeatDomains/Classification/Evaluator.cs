@@ -16,6 +16,8 @@ namespace SharpNeat.Domains.Classification
 
         public EvaluateInfo Evaluate(IBlackBox box, Dataset dataset)
         {
+            EvaluateInfo info = new EvaluateInfo();
+      
             int samplesCount = dataset.Samples.Count;
             var results = new ResultType[samplesCount][];
             correctlyClassified = 0;
@@ -29,7 +31,7 @@ namespace SharpNeat.Domains.Classification
                 var outputs = new double[dataset.OutputCount];
                 // activate our black box and get outputs
                 activate(box, inputs, outputs);
-                calculateCorrectness(expected, outputs);           
+                calculateCorrectness(expected, outputs);       
                 // apply to each pair of outputs array element and expected array element
                 // a function that is determined what kind of ResultType
                 // this pair produces (TP, TN, FN, TN)
@@ -60,7 +62,6 @@ namespace SharpNeat.Domains.Classification
             var FP = FPs.Average();
             var FN = FNs.Average();
 
-            EvaluateInfo info = new EvaluateInfo();
             info.CorrectlyClassified = correctlyClassified;
             info.IncorrectlyClassified = incorrectlyClassified;
             info.TP = TP;
@@ -135,7 +136,7 @@ namespace SharpNeat.Domains.Classification
 
         private int binarize(double value)
         {
-            return value >= 0.5 ? 1 : 0;
+            return value >= 0.75 ? 1 : 0;
         }
 
         private double ratioOfCorrectOutputForValue(int value, IList<int> outputs, IList<int> expected)

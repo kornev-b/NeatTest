@@ -17,7 +17,7 @@ namespace SharpNeat.Domains.Classification.Adult
 
         protected override string assertFileName()
         {
-            return @Filename;
+            return @"K:\nn\SharpNeat\NeatTest\src\datasets\clean_dota2";
         }
 
         protected override int assertInputsCount()

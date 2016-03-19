@@ -69,9 +69,14 @@
     <Compile Include="Classification\Adult\AdultBlackBoxEvaluator.cs" />
     <Compile Include="Classification\Adult\AdultDataProvider.cs" />
     <Compile Include="Classification\Adult\AdultExperiment.cs" />
+    <Compile Include="Classification\BinaryEvaluator.cs" />
+    <Compile Include="Classification\dota2\Dota2BlackBoxEvaluator.cs" />
+    <Compile Include="Classification\dota2\Dota2DataProvider.cs" />
+    <Compile Include="Classification\dota2\Dota2Experiment.cs" />
     <Compile Include="Classification\EvaluateInfo.cs" />
     <Compile Include="Classification\Evaluator.cs" />
     <Compile Include="Classification\Fitness.cs" />
+    <Compile Include="Classification\ProbabilitiesEvaluator.cs" />
     <Compile Include="Classification\Wine\WineDataProvider.cs" />
     <Compile Include="Classification\Wine\WineEvaluator.cs" />
     <Compile Include="Classification\Wine\WineExperiment.cs" />

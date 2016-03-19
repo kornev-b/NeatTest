@@ -14,6 +14,8 @@ namespace SharpNeat.Domains.Classification
     /// </summary>
     public class EvaluateInfo
     {
+        public double auc;
+        public double[][] probabilities;
         /// <summary>
         ///Predicted positive and expected positive
         /// </summary>

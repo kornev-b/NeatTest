@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using SharpNeat.Decoders;
@@ -119,6 +121,67 @@ namespace CrossValidation
             text += "Recall = TP / (TP + FN)\n";
             text += "FMeasure = 2 * (precision * recall / (precision + recall))";
             label1.Text = text;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int inputsCount;
+            int outputsCount;
+            Int32.TryParse(textBox1.Text, out inputsCount);
+            Int32.TryParse(textBox2.Text, out outputsCount);
+            if (inputsCount == 0 || outputsCount == 0)
+            {
+                MessageBox.Show("You should define inputs and outputs count.");
+                return;
+            }
+
+            CrossValidationDatasetProvider provider = new CrossValidationDatasetProvider.Builder()
+                .filename(openFileDialog1.FileName)
+                .delimeter(";")
+                .inputsCount(inputsCount)
+                .outputsCount(outputsCount)
+                .build();
+            Dataset dataset;
+            try
+            {
+                dataset = provider.getData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to parse the dataset file. \n" + ex.Message);
+                return;
+            }
+
+            if (dataset.InputCount != inputsCount && dataset.OutputCount != outputsCount)
+            {
+                MessageBox.Show("Defined inputs and outputs count are not match to the provided dataset.");
+                return;
+            }
+            var evaluator = new ProbabilitiesEvaluator();
+            var info = evaluator.predictProba(phenome, dataset);
+
+            SaveFileDialog savefile = new SaveFileDialog();
+            // set a default file name
+            savefile.FileName = "predicted_proba.txt";
+            // set filters - this can be done in properties as well
+            savefile.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+
+            if (savefile.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamWriter sw = new StreamWriter(savefile.FileName))
+                {
+                    for (int i = 0; i < info.Length; i++)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        for (int j = 0; j < info[i].Length; j++)
+                        {
+                            sb.Append(info[i][j]).Append(",");
+                        }
+                        sb.Remove(sb.Length - 1, 1);
+                        sw.WriteLine(sb.ToString());
+                    }
+                }
+            }
         }
     }
 }
