@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using SharpNeat.Phenomes;
 
@@ -8,6 +10,8 @@ namespace SharpNeat.Domains.Classification
     {
         int correctlyClassified;
         int incorrectlyClassified;
+        //double[][] predicions;
+        int punishment = 1;
 
         public enum ResultType
         {
@@ -17,11 +21,12 @@ namespace SharpNeat.Domains.Classification
         public EvaluateInfo Evaluate(IBlackBox box, Dataset dataset)
         {
             EvaluateInfo info = new EvaluateInfo();
-      
+
             int samplesCount = dataset.Samples.Count;
             var results = new ResultType[samplesCount][];
             correctlyClassified = 0;
             incorrectlyClassified = 0;
+            //predicions = new double[samplesCount][];
 
             for (int i = 0; i < samplesCount; i++)
             {
@@ -31,11 +36,13 @@ namespace SharpNeat.Domains.Classification
                 var outputs = new double[dataset.OutputCount];
                 // activate our black box and get outputs
                 activate(box, inputs, outputs);
-                calculateCorrectness(expected, outputs);       
+                calculateCorrectness(expected, outputs);
+                //predicions[i] = outputs;
                 // apply to each pair of outputs array element and expected array element
                 // a function that is determined what kind of ResultType
                 // this pair produces (TP, TN, FN, TN)
                 results[i] = outputs.Zip(expected, (o, e) => getResultType(o, e)).ToArray();
+                Debug.Print("Predicted: " + outputs[0]);
             }
 
             // Compute per-column sums
@@ -56,9 +63,9 @@ namespace SharpNeat.Domains.Classification
                 }
             }
 
-            
-            var TP = TPs.Average(); 
-            var TN = TNs.Average(); 
+
+            var TP = TPs.Average();
+            var TN = TNs.Average();
             var FP = FPs.Average();
             var FN = FNs.Average();
 
@@ -68,10 +75,19 @@ namespace SharpNeat.Domains.Classification
             info.TN = TN;
             info.FP = FP;
             info.FN = FN;
+            
             info.Calculate();
 
             return info;
         }
+
+        /*private void calcPunishment()
+        {
+            double[] first = predicions[0];
+            bool shouldPunish = predicions.All(x => equals(first, x));
+            punishment = shouldPunish ? 1 : 0;
+        }*/
+        
 
         private void calculateCorrectness(List<double> expected, double[] outputs)
         {
@@ -136,7 +152,7 @@ namespace SharpNeat.Domains.Classification
 
         private int binarize(double value)
         {
-            return value >= 0.75 ? 1 : 0;
+            return value >= 0.5 ? 1 : 0;
         }
 
         private double ratioOfCorrectOutputForValue(int value, IList<int> outputs, IList<int> expected)

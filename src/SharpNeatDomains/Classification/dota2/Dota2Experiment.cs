@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -13,12 +14,14 @@ using SharpNeat.Decoders.Neat;
 using SharpNeat.DistanceMetrics;
 using SharpNeat.Domains.Classification.Adult;
 using SharpNeat.EvolutionAlgorithms.ComplexityRegulation;
+using SharpNeat.Network;
 using SharpNeat.SpeciationStrategies;
 
 namespace SharpNeat.Domains.Classification.dota2
 {
     class Dota2Experiment : IGuiNeatExperiment
     {
+        private const int SEED = 24;
         NeatEvolutionAlgorithmParameters _eaParams;
         NeatGenomeParameters _neatGenomeParams;
         string _name;
@@ -44,7 +47,7 @@ namespace SharpNeat.Domains.Classification.dota2
 
         public int InputCount
         {
-            get { return 210; }
+            get { return 140; }
         }
 
         public string Name
@@ -64,7 +67,7 @@ namespace SharpNeat.Domains.Classification.dota2
 
         public int OutputCount
         {
-            get { return 2; }
+            get { return 1; }
         }
 
         public void Initialize(string name, XmlElement xmlConfig)
@@ -81,6 +84,7 @@ namespace SharpNeat.Domains.Classification.dota2
             _eaParams = new NeatEvolutionAlgorithmParameters();
             _eaParams.SpecieCount = _specieCount;
             _neatGenomeParams = new NeatGenomeParameters();
+            _neatGenomeParams.ActivationFn = PlainSigmoid.__DefaultInstance;
             _neatGenomeParams.FeedforwardOnly = _activationScheme.AcyclicNetwork;
         }
 
@@ -121,21 +125,24 @@ namespace SharpNeat.Domains.Classification.dota2
             // Create complexity regulation strategy.
             IComplexityRegulationStrategy complexityRegulationStrategy = ExperimentUtils.CreateComplexityRegulationStrategy(_complexityRegulationStr, _complexityThreshold);
 
-            // Create the evolution algorithm.
-            NeatEvolutionAlgorithm<NeatGenome> ea = new NeatEvolutionAlgorithm<NeatGenome>(_eaParams, speciationStrategy, complexityRegulationStrategy);
-
             // Create IBlackBox evaluator.
             Dota2BlackBoxEvaluator evaluator = new Dota2BlackBoxEvaluator();
             Dota2DataProvider dataProvider = new Dota2DataProvider();
             evaluator.DataProvider = dataProvider;
             evaluator.Fitness = _fitness;
             dataProvider.getData();
-
+            dataProvider.getEvalData();
+            // Create the evolution algorithm.
+            Dota2NeatEvolutionAlgorithm ea = new Dota2NeatEvolutionAlgorithm(dataProvider,_eaParams, speciationStrategy, complexityRegulationStrategy);
+            //ea.Seed(SEED);
+            File.WriteAllText("na_see.txt", "" + ea.UsedSeed);
             // Create genome decoder.
             IGenomeDecoder<NeatGenome, IBlackBox> genomeDecoder = CreateGenomeDecoder();
 
             // Create a genome list evaluator. This packages up the genome decoder with the genome evaluator.
-            IGenomeListEvaluator<NeatGenome> innerEvaluator = new ParallelGenomeListEvaluator<NeatGenome, IBlackBox>(genomeDecoder, evaluator, _parallelOptions);
+            IGenomeListEvaluator<NeatGenome> innerEvaluator = 
+                //new ParallelGenomeListEvaluator<NeatGenome,IBlackBox>(genomeDecoder, evaluator, _parallelOptions, true);
+                new Dota2GenomeListEvaluator<NeatGenome>(genomeDecoder, evaluator, _parallelOptions, true, dataProvider);
 
             // Wrap the list evaluator in a 'selective' evaulator that will only evaluate new genomes. That is, we skip re-evaluating any genomes
             // that were in the population in previous generations (elite genomes). This is determined by examining each genome's evaluation info object.
@@ -156,7 +163,10 @@ namespace SharpNeat.Domains.Classification.dota2
 
         public IGenomeFactory<NeatGenome> CreateGenomeFactory()
         {
-            return new NeatGenomeFactory(InputCount, OutputCount, _neatGenomeParams);
+            Dota2NeatGenomeFactory factory = new Dota2NeatGenomeFactory(InputCount, OutputCount, _neatGenomeParams);
+            //factory.Seed(SEED);
+            File.WriteAllText("seed_facroty.txt", ""+factory.Rng.seed);
+            return factory;
         }
 
         public AbstractGenomeView CreateGenomeView()

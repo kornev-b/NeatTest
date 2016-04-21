@@ -11,8 +11,9 @@ namespace SharpNeat.Domains.Classification.dota2
     {
         ulong _evalCount;
         bool _stopConditionSatisfied;
-        const double AcceptedAccuracy = 1.00d;
-        BinaryEvaluator evaluator = new BinaryEvaluator();
+        const double AcceptedAccuracy = 1d;
+        Evaluator evaluator = new Evaluator();
+        public List<int> Indexes { get; set; }
 
         public Dota2BlackBoxEvaluator()
         {
@@ -35,10 +36,11 @@ namespace SharpNeat.Domains.Classification.dota2
 
         public FitnessInfo Evaluate(IBlackBox phenome)
         {
+            BinaryEvaluator binaryEvaluator = new BinaryEvaluator(Indexes);
             _evalCount++;
             var dataset = DataProvider.getData();
-            EvaluateInfo info = evaluator.evaluate(phenome, dataset);
-
+            EvaluateInfo info = binaryEvaluator.Evaluate(phenome, dataset);
+            //EvaluateInfo evaInfo = binaryEvaluator.EvaluateTestData(phenome, evaDataset);
             if (info.auc >= AcceptedAccuracy)
             {
                 _stopConditionSatisfied = true;

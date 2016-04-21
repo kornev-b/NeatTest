@@ -46,8 +46,8 @@ namespace SharpNeat.EvolutionAlgorithms
         IList<Specie<TGenome>> _specieList;
         /// <summary>Index of the specie that contains _currentBestGenome.</summary>
         int _bestSpecieIdx;
-        readonly FastRandom _rng = new FastRandom();
-        readonly NeatAlgorithmStats _stats;
+        protected readonly FastRandom _rng = new FastRandom();
+        readonly NeatAlgorithmStats _stats;        
 
         ComplexityRegulationMode _complexityRegulationMode;
         readonly IComplexityRegulationStrategy _complexityRegulationStrategy;
@@ -90,6 +90,11 @@ namespace SharpNeat.EvolutionAlgorithms
         #endregion
 
         #region Properties
+
+        public int UsedSeed
+        {
+            get { return _rng.seed; }
+        }
 
         /// <summary>
         /// Gets a list of all current genomes. The current population of genomes. These genomes
@@ -663,7 +668,7 @@ namespace SharpNeat.EvolutionAlgorithms
         /// by not having to scan all genomes.
         /// Note. We may have several genomes with equal best fitness, we just select one of them in that case.
         /// </summary>
-        protected void UpdateBestGenome()
+        protected virtual void UpdateBestGenome()
         {
             // If all genomes have the same fitness (including zero) then we simply return the first genome.
             TGenome bestGenome = null;
@@ -685,6 +690,7 @@ namespace SharpNeat.EvolutionAlgorithms
             }
 
             _currentBestGenome = bestGenome;
+            
             _bestSpecieIdx = bestSpecieIdx;
         }
 
@@ -725,6 +731,7 @@ namespace SharpNeat.EvolutionAlgorithms
             }
 
             _stats._maxFitness = _currentBestGenome.EvaluationInfo.Fitness;
+            _stats._evalFitness = _currentBestGenome.EvaluationInfo.EvalFitness;
             _stats._meanFitness = totalFitness / count;
 
             _stats._maxComplexity = maxComplexity;

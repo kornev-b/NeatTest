@@ -23,6 +23,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -36,6 +37,7 @@ using SharpNeat.EvolutionAlgorithms.ComplexityRegulation;
 using SharpNeat.Genomes.Neat;
 using SharpNeat.Network;
 using SharpNeat.Utility;
+using SharpNeat.Domains.Classification;
 
 namespace SharpNeatGUI
 {
@@ -821,39 +823,44 @@ namespace SharpNeatGUI
             List<TimeSeriesDataSource> _dsList = new List<TimeSeriesDataSource>();
 
 
-            _dsList.Add(new TimeSeriesDataSource("Best", TimeSeriesDataSource.DefaultHistoryLength, 0, Color.Red, delegate() 
+            _dsList.Add(new TimeSeriesDataSource("Train", 100000, 0, Color.Red, delegate() 
                                                             {
                                                                 return new Point2DDouble(_ea.CurrentGeneration, _ea.Statistics._maxFitness);
                                                             }));
 
-            _dsList.Add(new TimeSeriesDataSource("Mean", TimeSeriesDataSource.DefaultHistoryLength, 0, Color.Black, delegate() 
-                                                            {
-                                                                return new Point2DDouble(_ea.CurrentGeneration, _ea.Statistics._meanFitness);
-                                                            }));
+            _dsList.Add(new TimeSeriesDataSource("Test", 100000, 0, Color.Green, delegate ()
+            {
+                return new Point2DDouble(_ea.CurrentGeneration, _ea.Statistics._evalFitness);
+            }));
 
-            _dsList.Add(new TimeSeriesDataSource("Best (Moving Average)", TimeSeriesDataSource.DefaultHistoryLength, 0, Color.Orange, delegate() 
-                                                            {
-                                                                return new Point2DDouble(_ea.CurrentGeneration, _ea.Statistics._bestFitnessMA.Mean);
-                                                            }));
+            //_dsList.Add(new TimeSeriesDataSource("Mean", TimeSeriesDataSource.DefaultHistoryLength, 0, Color.Black, delegate() 
+            //                                                {
+            //                                                    return new Point2DDouble(_ea.CurrentGeneration, _ea.Statistics._meanFitness);
+            //                                                }));
+
+            //_dsList.Add(new TimeSeriesDataSource("Best (Moving Average)", TimeSeriesDataSource.DefaultHistoryLength, 0, Color.Orange, delegate() 
+            //                                                {
+            //                                                    return new Point2DDouble(_ea.CurrentGeneration, _ea.Statistics._bestFitnessMA.Mean);
+            //                                                }));
 
             // Create a data sources for any auxiliary fitness info.
-            AuxFitnessInfo[] auxFitnessArr = _ea.CurrentChampGenome.EvaluationInfo.AuxFitnessArr;
-            if(null != auxFitnessArr)
-            {
-                for(int i=0; i<auxFitnessArr.Length; i++)
-                {
-                    // 'Capture' the value of i in a locally defined variable that has scope specific to each delegate creation (below). If capture 'i' instead then it will always have
-                    // its last value in each delegate (which happens to be one past the end of the array).
-                    int ii = i;
-                    _dsList.Add(new TimeSeriesDataSource(_ea.CurrentChampGenome.EvaluationInfo.AuxFitnessArr[i]._name, TimeSeriesDataSource.DefaultHistoryLength, 0, _plotColorArr[i % _plotColorArr.Length], delegate() 
-                                                                    {   
-                                                                        return new Point2DDouble(_ea.CurrentGeneration, _ea.CurrentChampGenome.EvaluationInfo.AuxFitnessArr[ii]._value);
-                                                                    }));
-                }
-            }
+            //AuxFitnessInfo[] auxFitnessArr = _ea.CurrentChampGenome.EvaluationInfo.AuxFitnessArr;
+            //if(null != auxFitnessArr)
+            //{
+            //    for(int i=0; i<auxFitnessArr.Length; i++)
+            //    {
+            //        // 'Capture' the value of i in a locally defined variable that has scope specific to each delegate creation (below). If capture 'i' instead then it will always have
+            //        // its last value in each delegate (which happens to be one past the end of the array).
+            //        int ii = i;
+            //        _dsList.Add(new TimeSeriesDataSource(_ea.CurrentChampGenome.EvaluationInfo.AuxFitnessArr[i]._name, TimeSeriesDataSource.DefaultHistoryLength, 0, _plotColorArr[i % _plotColorArr.Length], delegate() 
+            //                                                        {   
+            //                                                            return new Point2DDouble(_ea.CurrentGeneration, _ea.CurrentChampGenome.EvaluationInfo.AuxFitnessArr[ii]._value);
+            //                                                        }));
+            //    }
+            //}
 
             // Create form.
-            TimeSeriesGraphForm graphForm = new TimeSeriesGraphForm("Fitness (Best and Mean)", "Generation", "Fitness", string.Empty, _dsList.ToArray(), _ea);
+            TimeSeriesGraphForm graphForm = new TimeSeriesGraphForm("Fitness (Train and Test)", "Generation", "Fitness", string.Empty, _dsList.ToArray(), _ea); 
             _timeSeriesGraphFormList.Add(graphForm);
 
             // Attach a event handler to update this main form when the graph form is closed.
@@ -1452,9 +1459,9 @@ namespace SharpNeatGUI
                 {
                     // Update stats on screen.
                     UpdateGuiState_EaStats();
-
+                    
                     // Write entry to log window.
-                    __log.Info(string.Format("gen={0:N0} bestFitness={1:N6}", _ea.CurrentGeneration, _ea.Statistics._maxFitness));
+                    __log.Info(string.Format("gen={0:N0} train={1:N8} eval={2:N8}", _ea.CurrentGeneration, _ea.Statistics._maxFitness, _ea.Statistics._evalFitness));
 
                     // Check if we should save the champ genome to a file.
                     NeatGenome champGenome = _ea.CurrentChampGenome;
@@ -1612,24 +1619,36 @@ namespace SharpNeatGUI
 
         private double? ParseDouble(TextBox txtBox)
         {
-            double val;
-            if(double.TryParse(txtBox.Text, out val))
+            double result;
+
+            //Try parsing in US english
+            if (!double.TryParse(txtBox.Text, NumberStyles.Any, CultureInfo.GetCultureInfo("en-US"), out result) &&
+                // Then try in the current culture
+                !double.TryParse(txtBox.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out result) &&
+                //Then in neutral language
+                !double.TryParse(txtBox.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
             {
-                return val;
+                return null;
             }
-            __log.ErrorFormat("Error parsing value of text field [{0}]", txtBox.Name);
-            return null;
+
+            return result;
         }
 
         private double ParseDouble(TextBox txtBox, double defaultVal)
         {
-            double val;
-            if(double.TryParse(txtBox.Text, out val))
+            double result;
+
+            //Try parsing in US english
+            if (!double.TryParse(txtBox.Text, NumberStyles.Any, CultureInfo.GetCultureInfo("en-US"), out result) &&
+                // Then try in the current culture
+                !double.TryParse(txtBox.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out result) &&
+                //Then in neutral language
+                !double.TryParse(txtBox.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
             {
-                return val;
+                result = defaultVal;
             }
-            __log.ErrorFormat("Error parsing value of text field [{0}]", txtBox.Name);
-            return defaultVal;
+
+            return result;
         }
 
         /// <summary>

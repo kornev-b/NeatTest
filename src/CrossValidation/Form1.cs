@@ -9,6 +9,9 @@ using SharpNeat.Decoders.Neat;
 using SharpNeat.Domains;
 using SharpNeat.Phenomes;
 using SharpNeat.Domains.Classification;
+using System.Globalization;
+using System.Threading;
+using SharpNeat.Network;
 
 namespace CrossValidation
 {
@@ -40,6 +43,7 @@ namespace CrossValidation
             var _activationScheme = NetworkActivationScheme.CreateAcyclicScheme();
             var _neatGenomeParams = new NeatGenomeParameters();
             _neatGenomeParams.FeedforwardOnly = _activationScheme.AcyclicNetwork;
+            _neatGenomeParams.ActivationFn = PlainSigmoid.__DefaultInstance;
             var genomeFactory = new NeatGenomeFactory(inputsCount, outputsCount, _neatGenomeParams);
             try
             {
@@ -77,7 +81,7 @@ namespace CrossValidation
                 return;
             CrossValidationDatasetProvider provider = new CrossValidationDatasetProvider.Builder()
                 .filename(openFileDialog1.FileName)
-                .delimeter(";")
+                .delimeter(textBox3.Text)
                 .inputsCount(inputsCount)
                 .outputsCount(outputsCount)
                 .build();
@@ -98,6 +102,8 @@ namespace CrossValidation
                 return;
             }
             var evaluator = new Evaluator();
+            var binaryEvaluator = new BinaryEvaluator();
+            var aucInfo = binaryEvaluator.Evaluate(phenome, dataset);
             var info = evaluator.Evaluate(phenome, dataset);
             string text = "";
             text += "Samples count: " + dataset.Samples.Count + "\n";
@@ -109,7 +115,8 @@ namespace CrossValidation
             text += "|  Predicted negative |        " + info.FN.ToString("0.00") + " (FN)" + "        |         " + info.TN.ToString("0.00") + " (TN)" + "         |\n";
             text += " ------------------------------------------------------------------------------------------------------------\n";
             text += "\n\n";
-            text += "Accuracy: " + info.Accuracy.ToString("0.00") + "\n";
+            text += "AUC ROC: " + aucInfo.auc.ToString("0.000000000000") + "\n";
+            text += "Accuracy: " + aucInfo.accuracy.ToString("0.00000000000000") + "\n";
             text += "Precision: " + info.Precision.ToString("0.00") + "\n";
             text += "Recall: " + info.Recall.ToString("0.00") + " \n";
             text += "FMeasure: " + info.FMeasure.ToString("0.00") + "\n";
@@ -134,10 +141,12 @@ namespace CrossValidation
                 MessageBox.Show("You should define inputs and outputs count.");
                 return;
             }
-
+            var result = openFileDialog1.ShowDialog();
+            if (result != DialogResult.OK)
+                return;
             CrossValidationDatasetProvider provider = new CrossValidationDatasetProvider.Builder()
                 .filename(openFileDialog1.FileName)
-                .delimeter(";")
+                .delimeter(textBox3.Text)
                 .inputsCount(inputsCount)
                 .outputsCount(outputsCount)
                 .build();
@@ -168,6 +177,7 @@ namespace CrossValidation
 
             if (savefile.ShowDialog() == DialogResult.OK)
             {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-GB");
                 using (StreamWriter sw = new StreamWriter(savefile.FileName))
                 {
                     for (int i = 0; i < info.Length; i++)
@@ -175,7 +185,7 @@ namespace CrossValidation
                         StringBuilder sb = new StringBuilder();
                         for (int j = 0; j < info[i].Length; j++)
                         {
-                            sb.Append(info[i][j]).Append(",");
+                            sb.Append(string.Format("{0:0.00000000000000}", info[i][j])).Append(",");
                         }
                         sb.Remove(sb.Length - 1, 1);
                         sw.WriteLine(sb.ToString());

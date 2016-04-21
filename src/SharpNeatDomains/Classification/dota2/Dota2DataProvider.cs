@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SharpNeat.Domains.Classification.dota2
 {
-    class Dota2DataProvider : DataProvider
+    public class Dota2DataProvider : DataProvider
     {
         protected override DataRow parseDataRow(string[] fields)
         {
@@ -22,24 +22,14 @@ namespace SharpNeat.Domains.Classification.dota2
             return row;
         }
 
-        protected override string assertDelimeter()
-        {
-            return ",";
-        }
+        protected override string assertDelimeter() => ",";
 
-        protected override int assertInputsCount()
-        {
-            return 210;
-        }
+        protected override int assertInputsCount() => 140;
 
-        protected override int assertOutputsCount()
-        {
-            return 2;
-        }
+        protected override int assertOutputsCount() => 1;
 
-        protected override string assertFileName()
-        {
-            return @"K:\nn\SharpNeat\NeatTest\src\datasets\clean_dota2_train";
-        }
+        protected override string assertFileName() => @"..\..\..\datasets\dota2\dota_train.csv";
+
+        protected override string assertValidationFileName() => @"..\..\..\datasets\dota2\dota_test.csv";
     }
 }

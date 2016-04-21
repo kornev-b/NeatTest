@@ -130,6 +130,7 @@ namespace SharpNeat.Domains.Classification.Adult
             AdultBlackBoxEvaluator evaluator = new AdultBlackBoxEvaluator();
             AdultDataProvider dataProvider = new AdultDataProvider();
             dataProvider.Filename = _trainFilePath;
+            dataProvider.getData();
             evaluator.DataProvider = dataProvider;
             evaluator.Fitness = _fitness;
 

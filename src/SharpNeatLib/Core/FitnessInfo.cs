@@ -30,9 +30,13 @@ namespace SharpNeat.Core
         public static FitnessInfo Zero = new FitnessInfo(0.0, 0.0);
 
         /// <summary>
-        /// Fitness score.
+        /// Fitness score on training data.
         /// </summary>
         public double _fitness;
+        /// <summary>
+        /// Fitness score on validation data.
+        /// </summary>
+        public double _evalFitness;
 
         /// <summary>
         /// Auxiliary fitness info, i.e. for evaluation metrics other than the
@@ -46,6 +50,7 @@ namespace SharpNeat.Core
         public FitnessInfo(double fitness, double alternativeFitness)
         {
             _fitness = fitness;
+            _evalFitness = 0;
             _auxFitnessArr = new AuxFitnessInfo[] {new AuxFitnessInfo("Alternative Fitness", alternativeFitness)};
         }
 
@@ -56,6 +61,14 @@ namespace SharpNeat.Core
         {
             _fitness = fitness;
             _auxFitnessArr = auxFitnessArr;
+            _evalFitness = 0;
+        }
+
+        public FitnessInfo(double fitness, double alternativeFitness, double evalFiness)
+        {
+            _fitness = fitness;
+            _evalFitness = evalFiness;
+            _auxFitnessArr = new AuxFitnessInfo[] { new AuxFitnessInfo("Alternative Fitness", alternativeFitness) };
         }
     }
 }

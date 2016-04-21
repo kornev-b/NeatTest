@@ -73,6 +73,9 @@
     <Compile Include="Classification\dota2\Dota2BlackBoxEvaluator.cs" />
     <Compile Include="Classification\dota2\Dota2DataProvider.cs" />
     <Compile Include="Classification\dota2\Dota2Experiment.cs" />
+    <Compile Include="Classification\dota2\Dota2GenomeListEvaluator.cs" />
+    <Compile Include="Classification\dota2\Dota2NeatEvolutionAlgorithm.cs" />
+    <Compile Include="Classification\dota2\Dota2NeatGenomeFactory.cs" />
     <Compile Include="Classification\EvaluateInfo.cs" />
     <Compile Include="Classification\Evaluator.cs" />
     <Compile Include="Classification\Fitness.cs" />

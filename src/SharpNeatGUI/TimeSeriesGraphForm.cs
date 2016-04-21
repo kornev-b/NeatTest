@@ -86,6 +86,8 @@ namespace SharpNeatGUI
         private void InitGraph(string title, string xAxisTitle, string y1AxisTitle, string y2AxisTitle, TimeSeriesDataSource[] dataSourceArray)
         {
             _graphPane = zed.GraphPane;
+            _graphPane.IsBoundedRanges = false;
+
             _graphPane.Title.Text = title;
 
 			_graphPane.XAxis.Title.Text = xAxisTitle;

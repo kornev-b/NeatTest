@@ -39,6 +39,7 @@ namespace SharpNeat.Core
         readonly int _fitnessHistoryLength;
 
         double _fitness;
+        double _evalFitness;
         bool _isEvaluated;
         uint _evaluationCount;
         uint _evaluationPassCount;
@@ -71,6 +72,11 @@ namespace SharpNeat.Core
         public double Fitness
         {
             get { return (null != _fitnessHistory) ? _fitnessHistory.Mean : _fitness; }
+        }
+
+        public double EvalFitness
+        {
+            get { return (null != _fitnessHistory) ? _fitnessHistory.Mean : _evalFitness; }
         }
 
         /// <summary>
@@ -170,6 +176,16 @@ namespace SharpNeat.Core
             if(null != _fitnessHistory) {
                 _fitnessHistory.Enqueue(fitness);
             }
+        }
+
+        public void SetEvalFitness(double evalFitness)
+        {
+            if (evalFitness < 0.0 || double.IsNaN(evalFitness) || double.IsInfinity(evalFitness))
+            {
+                throw new ArgumentOutOfRangeException("Negative fitness values are not valid.");
+            }
+
+            _evalFitness = evalFitness;
         }
 
         /// <summary>

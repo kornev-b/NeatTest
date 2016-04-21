@@ -14,6 +14,7 @@ namespace SharpNeat.Domains.Classification
     /// </summary>
     public class EvaluateInfo
     {
+        public int punishment = 1;
         public double auc;
         public double[][] probabilities;
         /// <summary>
@@ -36,7 +37,7 @@ namespace SharpNeat.Domains.Classification
         public int CorrectlyClassified;
         public int IncorrectlyClassified;
 
-        private double accuracy;
+        public double accuracy;
         public double Accuracy
         {
             get
@@ -45,7 +46,7 @@ namespace SharpNeat.Domains.Classification
                 {
                     accuracy = (TP + TN) / (TP + TN + FP + FN);
                 }
-                return accuracy;
+                return accuracy * punishment;
             }
         }
 
@@ -63,7 +64,7 @@ namespace SharpNeat.Domains.Classification
                 {
                     precision = TP / (TP + FP);
                 }
-                return precision;
+                return precision * punishment;
             }
         }
         /// <summary>
@@ -80,7 +81,7 @@ namespace SharpNeat.Domains.Classification
                 {
                     recall = TP / (TP + FN);
                 }
-                return recall;
+                return recall * punishment;
             }
         }
 
@@ -93,7 +94,7 @@ namespace SharpNeat.Domains.Classification
                 {
                     fMeasure = 2 * (precision * recall / (precision + recall));
                 }
-                return fMeasure;
+                return fMeasure * punishment;
             }
         }
 

@@ -81,6 +81,8 @@ namespace SharpNeat.Utility
         /// in some cases depending on how the RNG is used.
         /// </summary>
         static readonly FastRandom __seedRng = new FastRandom((int)Environment.TickCount);
+
+        public int seed;
         #endregion
 
         #region Instance Fields
@@ -123,6 +125,7 @@ namespace SharpNeat.Utility
         /// </summary>
         public void Reinitialise(int seed)
         {
+            this.seed = seed;
             // The only stipulation stated for the xorshift RNG is that at least one of
             // the seeds x,y,z,w is non-zero. We fulfill that requirement by only allowing
             // resetting of the x seed.

@@ -55,7 +55,7 @@ namespace SharpNeat.Genomes.Neat
 
         /// <summary>Random number generator associated with this factory.</summary>
         protected readonly FastRandom _rng = new FastRandom();
-        readonly ZigguratGaussianSampler _gaussianSampler = new ZigguratGaussianSampler();
+        protected ZigguratGaussianSampler _gaussianSampler = new ZigguratGaussianSampler();
 
         /// <summary>Activation function library associated with this factory.</summary>
         protected readonly IActivationFunctionLibrary _activationFnLibrary;

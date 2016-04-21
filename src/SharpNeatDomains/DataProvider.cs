@@ -12,7 +12,8 @@ namespace SharpNeat.Domains
         protected int InputsCount { get; set; }
         protected int OutputsCount { get; set; }
 
-        private static Dataset cache;
+        protected static Dataset trainCache;
+        protected static Dataset evalCache;
 
         public DataProvider()
         {
@@ -22,13 +23,13 @@ namespace SharpNeat.Domains
 
         public virtual Dataset getData()
         {
-            if (cache != null)
+            if (trainCache != null)
             {
-                return cache;
+                return trainCache;
             }
-            cache = new Dataset();
-            cache.InputCount = assertInputsCount();
-            cache.OutputCount = assertOutputsCount();
+            trainCache = new Dataset();
+            trainCache.InputCount = assertInputsCount();
+            trainCache.OutputCount = assertOutputsCount();
             using (TextFieldParser parser = new TextFieldParser(assertFileName()))
             {
                 parser.TextFieldType = FieldType.Delimited;
@@ -37,10 +38,14 @@ namespace SharpNeat.Domains
                 {
                     string[] fields = parser.ReadFields();
                     DataRow dataRow = parseDataRow(fields);
-                    cache.Add(dataRow);
+                    if (dataRow == null)
+                    {
+                        continue;
+                    }
+                    trainCache.Add(dataRow);
                 }
             }
-            return cache;
+            return trainCache;
         }
 
         protected abstract DataRow parseDataRow(string[] fields);
@@ -52,6 +57,11 @@ namespace SharpNeat.Domains
         protected abstract int assertOutputsCount();
 
         protected abstract string assertFileName();
+
+        protected virtual string assertValidationFileName()
+        {
+            return "";
+        }
 
         protected double GetDouble(string value, double defaultValue)
         {
@@ -91,6 +101,33 @@ namespace SharpNeat.Domains
                 }
             }
             return result;
+        }
+
+        public virtual Dataset getEvalData()
+        {
+            if (evalCache != null)
+            {
+                return evalCache;
+            }
+            evalCache = new Dataset();
+            evalCache.InputCount = assertInputsCount();
+            evalCache.OutputCount = assertOutputsCount();
+            using (TextFieldParser parser = new TextFieldParser(assertValidationFileName()))
+            {
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(assertDelimeter());
+                while (!parser.EndOfData)
+                {
+                    string[] fields = parser.ReadFields();
+                    DataRow dataRow = parseDataRow(fields);
+                    if (dataRow == null)
+                    {
+                        continue;
+                    }
+                    evalCache.Add(dataRow);
+                }
+            }
+            return evalCache;
         }
     }
 }

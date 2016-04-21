@@ -22,6 +22,7 @@ namespace CrossValidation
             _inputsCount = inputsCount;
             _outputsCount = outputsCount;
             _delimeter = delimeter;
+            trainCache = null;
         }
 
 
@@ -76,6 +77,10 @@ namespace CrossValidation
                 {
                     row.Outputs.Add(GetDouble(fields[i], 0));
                 }
+            }
+            if (row.Outputs.Count < _outputsCount)
+            {
+                return null;
             }
             return row;
         }

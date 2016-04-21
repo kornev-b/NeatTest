@@ -17,7 +17,7 @@ namespace SharpNeat.Domains.Classification.Adult
 
         protected override string assertFileName()
         {
-            return @"K:\nn\SharpNeat\NeatTest\src\datasets\clean_dota2";
+            return @Filename;
         }
 
         protected override int assertInputsCount()
@@ -27,7 +27,7 @@ namespace SharpNeat.Domains.Classification.Adult
 
         protected override int assertOutputsCount()
         {
-            return 2;
+            return 1;
         }
 
         protected override DataRow parseDataRow(string[] fields)
@@ -51,6 +51,10 @@ namespace SharpNeat.Domains.Classification.Adult
             }
             row.Inputs = inputs;
             row.Outputs = outputs;
+            if (outputs.Count == 0)
+            {
+                return null;
+            }
             return row;
         }
     }

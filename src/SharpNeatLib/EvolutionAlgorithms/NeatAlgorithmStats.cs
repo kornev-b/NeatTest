@@ -54,9 +54,13 @@ namespace SharpNeat.EvolutionAlgorithms
         #region Fitness Stats
 
         /// <summary>
-        /// The fitness of the best genome.
+        /// The fitness of the best genome on training data.
         /// </summary>
         public double _maxFitness;
+        /// <summary>
+        /// The fitness of the best genome on validdation data.
+        /// </summary>
+        public double _evalFitness;
         /// <summary>
         /// The mean genome fitness.
         /// </summary>
