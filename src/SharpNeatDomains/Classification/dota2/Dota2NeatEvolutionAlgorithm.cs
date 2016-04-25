@@ -35,6 +35,7 @@ namespace SharpNeat.Domains.Classification.dota2
         {
             
             base.UpdateBestGenome();
+            if (_currentBestGenome == null) return;
             BinaryEvaluator binaryEvaluator = new BinaryEvaluator();
 
             var eval = binaryEvaluator.EvaluateTestData((IBlackBox) _currentBestGenome.CachedPhenome, _dataProvider.getEvalData());
