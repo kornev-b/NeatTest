@@ -99,6 +99,8 @@ namespace SharpNeatGUI
 			_graphPane.Y2Axis.Title.Text = y2AxisTitle;
 			_graphPane.Y2Axis.MajorGrid.IsVisible = false;
 
+            
+
             // Create point-pair lists and bind them to the graph control.
             int sourceCount = dataSourceArray.Length;
             _pointPlotArray = new RollingPointPairList[sourceCount];
@@ -107,6 +109,7 @@ namespace SharpNeatGUI
                 TimeSeriesDataSource ds = dataSourceArray[i];
                 _pointPlotArray[i] = new RollingPointPairList(ds.HistoryLength);
                 LineItem lineItem = _graphPane.AddCurve(ds.Name,  _pointPlotArray[i], ds.Color, SymbolType.None);
+                lineItem.Line.Width = 3f;
                 lineItem.IsY2Axis = (ds.YAxis == 1);
             }
         }

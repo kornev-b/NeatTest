@@ -27,7 +27,7 @@ namespace SharpNeat.Domains.Classification.dota2
         private readonly Dota2DataProvider _dataProvider;
         readonly EvaluationMethod _evalMethod;
         FastRandom rand = new FastRandom();
-        private bool flag = false;
+        private static bool flag = true;
 
         delegate void EvaluationMethod(IList<TGenome> genomeList);
 
@@ -139,39 +139,37 @@ namespace SharpNeat.Domains.Classification.dota2
             List<int> indexes;
             if (flag)
             {
-
-                //indexes = getIndexes(_dataProvider.getData(), 0.3);
-                Parallel.ForEach(genomeList, _parallelOptions, delegate(TGenome genome)
+                indexes = getIndexes(_dataProvider.getData(), 0.2);
+                Parallel.ForEach(genomeList, _parallelOptions, delegate (TGenome genome)
                 {
-                    IBlackBox phenome = (IBlackBox) genome.CachedPhenome;
+                    IBlackBox phenome = (IBlackBox)genome.CachedPhenome;
                     if (null == phenome)
                     {
-                        // Decode the phenome and store a ref against the genome.
-                        phenome = _genomeDecoder.Decode(genome);
+                    // Decode the phenome and store a ref against the genome.
+                    phenome = _genomeDecoder.Decode(genome);
                         genome.CachedPhenome = phenome;
                     }
 
                     if (null == phenome)
                     {
-                        // Non-viable genome.
-                        genome.EvaluationInfo.SetFitness(0.0);
+                    // Non-viable genome.
+                    genome.EvaluationInfo.SetFitness(0.0);
                         genome.EvaluationInfo.AuxFitnessArr = null;
                     }
                     else
                     {
-                        //_phenomeEvaluator.Indexes = indexes;
+                        _phenomeEvaluator.Indexes = indexes;
                         FitnessInfo fitnessInfo = _phenomeEvaluator.Evaluate(phenome);
                         genome.EvaluationInfo.SetFitness(fitnessInfo._fitness);
-                        //genome.EvaluationInfo.SetEvalFitness(fitnessInfo._evalFitness);
-                        genome.EvaluationInfo.AuxFitnessArr = fitnessInfo._auxFitnessArr;
+                    //genome.EvaluationInfo.SetEvalFitness(fitnessInfo._evalFitness);
+                    genome.EvaluationInfo.AuxFitnessArr = fitnessInfo._auxFitnessArr;
                     }
                 });
-                //flag = false;
+                flag = false;
                 return;
             }
 
-            flag = true;
-            //indexes = getIndexes(_dataProvider.getData(), 0.3);
+            indexes = getIndexes(_dataProvider.getData(), 1);
             Parallel.ForEach(genomeList, _parallelOptions, delegate (TGenome genome)
             {
                 IBlackBox phenome = (IBlackBox)genome.CachedPhenome;
@@ -188,13 +186,14 @@ namespace SharpNeat.Domains.Classification.dota2
                 }
                 else
                 {
-                    _phenomeEvaluator.Indexes = null;
+                    _phenomeEvaluator.Indexes = indexes;
                     FitnessInfo fitnessInfo = _phenomeEvaluator.Evaluate(phenome);
                     genome.EvaluationInfo.SetFitness((genome.EvaluationInfo.Fitness + fitnessInfo._fitness) / 2);
                     genome.EvaluationInfo.SetEvalFitness(fitnessInfo._evalFitness);
                     genome.EvaluationInfo.AuxFitnessArr = fitnessInfo._auxFitnessArr;
                 }
             });
+            flag = true;
             var time = s.ElapsedTicks;
         }
 
