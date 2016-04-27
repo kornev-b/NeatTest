@@ -123,7 +123,7 @@ namespace SharpNeat.Domains.Classification
             }
 
             // Activate the network and get outputs back
-            box.Activate();
+            box.ActivateWithDropout();
             box.OutputSignalArray.CopyTo(outputs, 0);
 
             //            normalizeOutputs(outputs);

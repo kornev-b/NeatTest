@@ -16,6 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with SharpNEAT.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+using System;
 using SharpNeat.Network;
 
 namespace SharpNeat.Phenomes.NeuralNets
@@ -71,6 +73,8 @@ namespace SharpNeat.Phenomes.NeuralNets
         /// </summary>
         readonly double[] _activationArr;
 
+        int[] _dropoutArr;
+
     //=== Misc.
         // Wrappers over _activationArr that map between black box inputs/outputs to the
         // corresponding underlying node activation levels.
@@ -121,6 +125,7 @@ namespace SharpNeat.Phenomes.NeuralNets
 
             // Create working array for node activation signals.
             _activationArr = new double[nodeCount];
+            _dropoutArr = new int[nodeCount];
 
             // Wrap a sub-range of the _activationArr that holds the activation values for the input nodes.
             // Offset is 1 to skip bias neuron (The value at index 1 is the first black box input).
@@ -138,6 +143,7 @@ namespace SharpNeat.Phenomes.NeuralNets
             _outputNodeIdexArray = outputNodeIdxArr;
             // Initialise the bias neuron's fixed output value.
             _activationArr[0] = 1.0;
+            _dropoutArr[0] = 1;
         }
 
         public int NodesCount
@@ -232,6 +238,59 @@ namespace SharpNeat.Phenomes.NeuralNets
                     _activationArr[nodeIdx] = _nodeActivationFnArr[nodeIdx].Calculate(_activationArr[nodeIdx], _nodeAuxArgsArr[nodeIdx]);
                 }
             }
+        }
+
+        /// <summary>
+        /// Activate the black box. The dropout technique is used during the activation.
+        /// </summary>
+        public virtual void ActivateWithDropout()
+        {
+            // Reset any state from a previous activation.
+            for (int i = _inputAndBiasNodeCount; i < _activationArr.Length; i++)
+            {
+                _activationArr[i] = 0.0;
+            }
+            randomizeDropout();
+            // Process all layers in turn.
+            int conIdx = 0, nodeIdx = _inputAndBiasNodeCount;
+            for (int layerIdx = 1; layerIdx < _layerInfoArr.Length; layerIdx++)
+            {
+                LayerInfo layerInfo = _layerInfoArr[layerIdx - 1];
+
+                // Push signals through the previous layer's connections to the current layer's nodes.
+                for (; conIdx < layerInfo._endConnectionIdx; conIdx++)
+                {
+                    _activationArr[_connectionArr[conIdx]._tgtNeuronIdx] += 
+                        _activationArr[_connectionArr[conIdx]._srcNeuronIdx] * 
+                        _connectionArr[conIdx]._weight *
+                        _dropoutArr[_connectionArr[conIdx]._srcNeuronIdx];
+                }
+
+                // Activate current layer's nodes.
+                layerInfo = _layerInfoArr[layerIdx];
+                for (; nodeIdx < layerInfo._endNodeIdx; nodeIdx++)
+                {
+                    _activationArr[nodeIdx] = _nodeActivationFnArr[nodeIdx].Calculate(_activationArr[nodeIdx], _nodeAuxArgsArr[nodeIdx]);
+                }
+            }
+        }
+
+        private void randomizeDropout()
+        {
+            // We should find out how much units we have in hidden layers.
+            // if the number of units is greater than some value X 
+            // we would use dropout for such a layer
+            //int nodeIdx = 0;
+            //for (int layerIdx = 0; layerIdx < _layerInfoArr.Length; layerIdx++)
+            //{
+            //    LayerInfo layerInfo = _layerInfoArr[layerIdx - 1];
+            //    if (layerIdx == 0 && layerInfo._endNodeIdx - nodeIdx - _inputAndBiasNodeCount)
+            //    {
+
+            //    }
+            //}
+            _dropoutArr = BernoulliRandomizer.NextP08(_dropoutArr.Length);
+            _dropoutArr[0] = 1;
         }
 
         /// <summary>

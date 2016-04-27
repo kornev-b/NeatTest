@@ -190,6 +190,11 @@ namespace SharpNeat.Phenomes.NeuralNets
             }
         }
 
+        public void ActivateWithDropout()
+        {
+            throw new System.NotImplementedException();
+        }
+
         /// <summary>
         /// Reset the network's internal state.
         /// </summary>

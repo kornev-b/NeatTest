@@ -68,6 +68,11 @@ namespace SharpNeat.Phenomes
         void Activate();
 
         /// <summary>
+        /// Activate the black box. The dropout technique is used during the activation.
+        /// </summary>
+        void ActivateWithDropout();
+
+        /// <summary>
         /// Reset any internal state.
         /// </summary>
         void ResetState();
