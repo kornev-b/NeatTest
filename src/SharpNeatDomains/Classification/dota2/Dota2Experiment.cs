@@ -15,6 +15,7 @@ using SharpNeat.DistanceMetrics;
 using SharpNeat.Domains.Classification.Adult;
 using SharpNeat.EvolutionAlgorithms.ComplexityRegulation;
 using SharpNeat.Network;
+using SharpNeat.Network.ActivationFunctions.Bipolar;
 using SharpNeat.SpeciationStrategies;
 
 namespace SharpNeat.Domains.Classification.dota2
@@ -85,6 +86,7 @@ namespace SharpNeat.Domains.Classification.dota2
             _eaParams.SpecieCount = _specieCount;
             _neatGenomeParams = new NeatGenomeParameters();
             _neatGenomeParams.ActivationFn = PlainSigmoid.__DefaultInstance;
+            _neatGenomeParams.HiddenUnitActivationFn = ReLU.__DefaultInstance;
             _neatGenomeParams.FeedforwardOnly = _activationScheme.AcyclicNetwork;
         }
 

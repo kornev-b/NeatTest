@@ -18,6 +18,7 @@
  */
 
 using SharpNeat.Network;
+using SharpNeat.Network.ActivationFunctions.Bipolar;
 using SharpNeat.Utility;
 
 namespace SharpNeat.Genomes.Neat
@@ -48,6 +49,7 @@ namespace SharpNeat.Genomes.Neat
 
         bool _feedforwardOnly;
         IActivationFunction _activationFn;
+        IActivationFunction _hiddenUnitActivationFn;
         double _connectionWeightRange;
         double _initialInterconnectionsProportion;
         double _disjointExcessGenesRecombineProbability;
@@ -85,6 +87,7 @@ namespace SharpNeat.Genomes.Neat
         public NeatGenomeParameters()
         {
             _activationFn                               = SteepenedSigmoid.__DefaultInstance;
+            _hiddenUnitActivationFn                     = new ReLU();
             _connectionWeightRange                      = DefaultConnectionWeightRange;
             _initialInterconnectionsProportion          = DefaultInitialInterconnectionsProportion;
             _disjointExcessGenesRecombineProbability    = DefaultDisjointExcessGenesRecombineProbability;
@@ -111,6 +114,7 @@ namespace SharpNeat.Genomes.Neat
         {
             _feedforwardOnly                            = copyFrom._feedforwardOnly;
             _activationFn                               = copyFrom._activationFn;
+            _hiddenUnitActivationFn                     = copyFrom._hiddenUnitActivationFn;
             _connectionWeightRange                      = copyFrom._connectionWeightRange;
             _initialInterconnectionsProportion          = copyFrom._initialInterconnectionsProportion;
             _disjointExcessGenesRecombineProbability    = copyFrom._disjointExcessGenesRecombineProbability;
@@ -150,6 +154,12 @@ namespace SharpNeat.Genomes.Neat
         {
             get { return _activationFn; }
             set { _activationFn = value; }
+        }
+
+        public IActivationFunction HiddenUnitActivationFn
+        {
+            get { return _hiddenUnitActivationFn; }
+            set { _hiddenUnitActivationFn = value; }
         }
 
         /// <summary>

@@ -35,7 +35,7 @@ namespace SharpNeat.Domains.Classification
                 var expected = dataRow.Outputs;
                 var outputs = new double[dataset.OutputCount];
                 // activate our black box and get outputs
-                activate(box, inputs, outputs);
+                activateTest(box, inputs, outputs);
                 predictedProbs[i] = outputs[0];
                 expectedProbs[i] = expected[0];
                 //calculateCorrectness(expected, outputs);
@@ -109,7 +109,25 @@ namespace SharpNeat.Domains.Classification
             return info;
         }
 
+        private double[] activateTest(IBlackBox box, IList<double> inputs, double[] outputs)
+        {
+            box.ResetState();
 
+            // Give inputs to the network
+            var nodeId = 0;
+            foreach (var input in inputs)
+            {
+                box.InputSignalArray[nodeId++] = input;
+            }
+
+            // Activate the network and get outputs back
+            box.Activate();
+            box.OutputSignalArray.CopyTo(outputs, 0);
+
+            //            normalizeOutputs(outputs);
+
+            return outputs;
+        }
 
         private double[] activate(IBlackBox box, IList<double> inputs, double[] outputs)
         {
@@ -123,7 +141,7 @@ namespace SharpNeat.Domains.Classification
             }
 
             // Activate the network and get outputs back
-            box.ActivateWithDropout();
+            box.Activate();
             box.OutputSignalArray.CopyTo(outputs, 0);
 
             //            normalizeOutputs(outputs);

@@ -18,7 +18,9 @@
  */
 
 using System;
+using System.Diagnostics;
 using SharpNeat.Network;
+using SharpNeat.Network.ActivationFunctions.Bipolar;
 
 namespace SharpNeat.Phenomes.NeuralNets
 {
@@ -235,7 +237,14 @@ namespace SharpNeat.Phenomes.NeuralNets
                 // Activate current layer's nodes.
                 layerInfo = _layerInfoArr[layerIdx];
                 for(; nodeIdx < layerInfo._endNodeIdx; nodeIdx++) {
-                    _activationArr[nodeIdx] = _nodeActivationFnArr[nodeIdx].Calculate(_activationArr[nodeIdx], _nodeAuxArgsArr[nodeIdx]);
+                    if (nodeIdx < _activationArr.Length - _outputNodeCount)
+                    {
+                        _activationArr[nodeIdx] = ReLU.__DefaultInstance.Calculate(_activationArr[nodeIdx], _nodeAuxArgsArr[nodeIdx]);
+                    }
+                    else
+                    {
+                        _activationArr[nodeIdx] = _nodeActivationFnArr[nodeIdx].Calculate(_activationArr[nodeIdx], _nodeAuxArgsArr[nodeIdx]);
+                    }
                 }
             }
         }
@@ -250,7 +259,10 @@ namespace SharpNeat.Phenomes.NeuralNets
             {
                 _activationArr[i] = 0.0;
             }
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             randomizeDropout();
+            Debug.Print("dropout: " + sw.ElapsedMilliseconds);
             // Process all layers in turn.
             int conIdx = 0, nodeIdx = _inputAndBiasNodeCount;
             for (int layerIdx = 1; layerIdx < _layerInfoArr.Length; layerIdx++)
