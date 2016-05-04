@@ -16,6 +16,8 @@ namespace SharpNeat.Domains.Classification.dota2
 {
     public class Dota2NeatEvolutionAlgorithm:NeatEvolutionAlgorithm<NeatGenome>
     {
+        private static double bestFitness = 0;
+        private const double FITNESS_THRESHOLD = 0.735;
         private readonly Dota2DataProvider _dataProvider;
         private List<int> generationTrack = new List<int>(new int[]{0, 50, 100, 500});
         XmlWriterSettings _xwSettings = new XmlWriterSettings();
@@ -40,6 +42,11 @@ namespace SharpNeat.Domains.Classification.dota2
 
             var eval = binaryEvaluator.EvaluateTestData((IBlackBox) _currentBestGenome.CachedPhenome, _dataProvider.getEvalData());
             _currentBestGenome.EvaluationInfo.SetEvalFitness(eval.auc);
+            if (eval.auc > FITNESS_THRESHOLD && eval.auc > bestFitness)
+            {
+                bestFitness = eval.auc;
+                saveChampion();
+            }
             //uint generation = _currentBestGenome.BirthGeneration;
             //if (generationTrack.Count > 0 && generation >= generationTrack[0])
             //{
@@ -55,7 +62,7 @@ namespace SharpNeat.Domains.Classification.dota2
 
         private void saveChampion()
         {
-            string spath = "champ_" + _currentBestGenome.BirthGeneration + ".gnm.xml";
+            string spath = "champ.gnm.xml";
             
             // Save genome to xml file.
             using (XmlWriter xw = XmlWriter.Create(spath, _xwSettings))

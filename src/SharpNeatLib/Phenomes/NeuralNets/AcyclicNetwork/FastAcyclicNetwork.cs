@@ -290,22 +290,10 @@ namespace SharpNeat.Phenomes.NeuralNets
 
         private void randomizeDropout()
         {
-            // We should find out how much units we have in hidden layers.
-            // if the number of units is greater than some value X 
-            // we would use dropout for such a layer
-            //int nodeIdx = 0;
-            //for (int layerIdx = 0; layerIdx < _layerInfoArr.Length; layerIdx++)
-            //{
-            //    LayerInfo layerInfo = _layerInfoArr[layerIdx - 1];
-            //    if (layerIdx == 0 && layerInfo._endNodeIdx - nodeIdx - _inputAndBiasNodeCount)
-            //    {
-
-            //    }
-            //}
-            int[] inputDropout = BernoulliRandomizer.NextP08(_inputAndBiasNodeCount);
+            //int[] inputDropout = BernoulliRandomizer.NextP08(_inputAndBiasNodeCount);
             for (int i = 0; i < _inputAndBiasNodeCount; i++)
             {
-                _dropoutArr[i] = inputDropout[i];
+                _dropoutArr[i] = /*inputDropout[i];*/ 1;
             }
             int hiddenCount = _dropoutArr.Length - _inputAndBiasNodeCount - 1;
             if (hiddenCount > 0)

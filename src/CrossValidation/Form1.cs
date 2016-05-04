@@ -103,7 +103,7 @@ namespace CrossValidation
             }
             var evaluator = new Evaluator();
             var binaryEvaluator = new BinaryEvaluator();
-            var aucInfo = binaryEvaluator.Evaluate(phenome, dataset);
+            var aucInfo = binaryEvaluator.EvaluateTestData(phenome, dataset);
             var info = evaluator.Evaluate(phenome, dataset);
             string text = "";
             text += "Samples count: " + dataset.Samples.Count + "\n";
