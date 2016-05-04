@@ -237,14 +237,15 @@ namespace SharpNeat.Phenomes.NeuralNets
                 // Activate current layer's nodes.
                 layerInfo = _layerInfoArr[layerIdx];
                 for(; nodeIdx < layerInfo._endNodeIdx; nodeIdx++) {
-                    if (nodeIdx < _activationArr.Length - _outputNodeCount)
-                    {
-                        _activationArr[nodeIdx] = ReLU.__DefaultInstance.Calculate(_activationArr[nodeIdx], _nodeAuxArgsArr[nodeIdx]);
-                    }
-                    else
-                    {
-                        _activationArr[nodeIdx] = _nodeActivationFnArr[nodeIdx].Calculate(_activationArr[nodeIdx], _nodeAuxArgsArr[nodeIdx]);
-                    }
+                    //if (nodeIdx < _activationArr.Length - _outputNodeCount)
+                    //{
+                    //    _activationArr[nodeIdx] = ReLU.__DefaultInstance.Calculate(_activationArr[nodeIdx], _nodeAuxArgsArr[nodeIdx]);
+                    //}
+                    //else
+                    //{
+                    //    _activationArr[nodeIdx] = _nodeActivationFnArr[nodeIdx].Calculate(_activationArr[nodeIdx], _nodeAuxArgsArr[nodeIdx]);
+                    //}
+                    _activationArr[nodeIdx] = _nodeActivationFnArr[nodeIdx].Calculate(_activationArr[nodeIdx], _nodeAuxArgsArr[nodeIdx]);
                 }
             }
         }
@@ -259,10 +260,10 @@ namespace SharpNeat.Phenomes.NeuralNets
             {
                 _activationArr[i] = 0.0;
             }
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
+            //Stopwatch sw = new Stopwatch();
+            //sw.Start();
             randomizeDropout();
-            Debug.Print("dropout: " + sw.ElapsedMilliseconds);
+            //Debug.Print("dropout: " + sw.ElapsedMilliseconds);
             // Process all layers in turn.
             int conIdx = 0, nodeIdx = _inputAndBiasNodeCount;
             for (int layerIdx = 1; layerIdx < _layerInfoArr.Length; layerIdx++)
@@ -301,7 +302,21 @@ namespace SharpNeat.Phenomes.NeuralNets
 
             //    }
             //}
-            _dropoutArr = BernoulliRandomizer.NextP08(_dropoutArr.Length);
+            int[] inputDropout = BernoulliRandomizer.NextP08(_inputAndBiasNodeCount);
+            for (int i = 0; i < _inputAndBiasNodeCount; i++)
+            {
+                _dropoutArr[i] = inputDropout[i];
+            }
+            int hiddenCount = _dropoutArr.Length - _inputAndBiasNodeCount - 1;
+            if (hiddenCount > 0)
+            {
+                int[] hiddentDropoutArr = BernoulliRandomizer.NextP05(_dropoutArr.Length - _inputAndBiasNodeCount - 1);
+                for (int i = 0; i < hiddentDropoutArr.Length; i++)
+                {
+                    _dropoutArr[i + _inputAndBiasNodeCount] = hiddentDropoutArr[i];
+                }
+            }
+            
             _dropoutArr[0] = 1;
         }
 

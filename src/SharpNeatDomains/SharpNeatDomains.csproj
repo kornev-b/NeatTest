@@ -80,6 +80,12 @@
     <Compile Include="Classification\Evaluator.cs" />
     <Compile Include="Classification\Fitness.cs" />
     <Compile Include="Classification\ProbabilitiesEvaluator.cs" />
+    <Compile Include="Classification\Taxi\TaxiBlackBoxEvaluator.cs" />
+    <Compile Include="Classification\Taxi\TaxiDataProvider.cs" />
+    <Compile Include="Classification\Taxi\TaxiExperiment.cs" />
+    <Compile Include="Classification\Taxi\TaxiGenomeListEvaluator.cs" />
+    <Compile Include="Classification\Taxi\TaxiNeatEvolutionAlgorithm.cs" />
+    <Compile Include="Classification\Taxi\TaxiNeatGenomeFactory.cs" />
     <Compile Include="Classification\Wine\WineDataProvider.cs" />
     <Compile Include="Classification\Wine\WineEvaluator.cs" />
     <Compile Include="Classification\Wine\WineExperiment.cs" />
