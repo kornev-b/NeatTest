@@ -20,7 +20,7 @@ using SharpNeat.SpeciationStrategies;
 
 namespace SharpNeat.Domains.Classification.dota2
 {
-    class Dota2Experiment : IGuiNeatExperiment
+    class Dota2Experiment : OverfittingExperiment
     {
         private const int SEED = 24;
         NeatEvolutionAlgorithmParameters _eaParams;
@@ -35,6 +35,12 @@ namespace SharpNeat.Domains.Classification.dota2
         ParallelOptions _parallelOptions;
         Fitness _fitness = Fitness.FMEASURE;
         string _trainFilePath;
+        private OverfittingParams _overfittingParams = new OverfittingParams();
+
+        public OverfittingParams OverfittingParams
+        {
+            get { return _overfittingParams; }
+        }
 
         public int DefaultPopulationSize
         {

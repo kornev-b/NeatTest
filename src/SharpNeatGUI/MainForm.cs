@@ -323,6 +323,18 @@ namespace SharpNeatGUI
             ngParams.AddNodeMutationProbability = ParseDouble(txtParamMutateAddNode, ngParams.AddNodeMutationProbability);
             ngParams.AddConnectionMutationProbability = ParseDouble(txtParamMutateAddConnection, ngParams.AddConnectionMutationProbability);
             ngParams.DeleteConnectionMutationProbability = ParseDouble(txtParamMutateDeleteConnection, ngParams.DeleteConnectionMutationProbability);
+
+            if (_selectedExperiment is OverfittingExperiment)
+            {
+                OverfittingParams overfittingParams = ((OverfittingExperiment) _selectedExperiment).OverfittingParams;
+                overfittingParams.dropoutInputP = ParseInt(txtInputDropout, 1);
+                overfittingParams.dropoutHiddenP = ParseDouble(txtDropoutHidden, 0.5);
+                overfittingParams.triggerN = ParseInt(txtDropoutTrigger, 3);
+                overfittingParams.subsample = ParseDouble(txtSubsample, 1);
+                overfittingParams.interleaved = checkBoxInterleavedSubsample.Checked;
+                overfittingParams.interleavedStartSubsample = ParseDouble(txtInterleavedSubsamplingStart, 1);
+                overfittingParams.interleavedCrossSubsample = ParseDouble(txtInterleavedSubsamplingCross, 0.2);
+            }
         }
 
         #endregion

@@ -14,6 +14,8 @@ namespace SharpNeat.Domains.Classification
         int correctlyClassified;
         int incorrectlyClassified;
 
+        public OverfittingParams _overfittingParams;
+
         public BinaryEvaluator() { }
 
         public BinaryEvaluator(List<int> indexes )
@@ -112,40 +114,26 @@ namespace SharpNeat.Domains.Classification
         private double[] activateTest(IBlackBox box, IList<double> inputs, double[] outputs)
         {
             box.ResetState();
-
-            // Give inputs to the network
             var nodeId = 0;
             foreach (var input in inputs)
             {
                 box.InputSignalArray[nodeId++] = input;
             }
-
-            // Activate the network and get outputs back
             box.Activate();
             box.OutputSignalArray.CopyTo(outputs, 0);
-
-            //            normalizeOutputs(outputs);
-
             return outputs;
         }
 
         private double[] activate(IBlackBox box, IList<double> inputs, double[] outputs)
         {
             box.ResetState();
-
-            // Give inputs to the network
             var nodeId = 0;
             foreach (var input in inputs)
             {
                 box.InputSignalArray[nodeId++] = input;
             }
-
-            // Activate the network and get outputs back
-            box.ActivateWithDropout();
-            box.OutputSignalArray.CopyTo(outputs, 0);
-
-            //            normalizeOutputs(outputs);
-
+            box.ActivateWithDropout(_overfittingParams.dropoutInputP, _overfittingParams.dropoutHiddenP, _overfittingParams.triggerN);
+            box.OutputSignalArray.CopyTo(outputs, 0);        
             return outputs;
         }
 

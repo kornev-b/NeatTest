@@ -39,9 +39,8 @@ namespace CrossValidation
 
             _graphPane.Y2Axis.Title.Text = string.Empty;
             _graphPane.Y2Axis.MajorGrid.IsVisible = false;
-
-
         }
+
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Have the user choose the genome XML file.
