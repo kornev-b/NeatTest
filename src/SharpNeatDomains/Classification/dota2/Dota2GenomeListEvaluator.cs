@@ -164,35 +164,35 @@ namespace SharpNeat.Domains.Classification.dota2
                     genome.EvaluationInfo.AuxFitnessArr = fitnessInfo._auxFitnessArr;
                     }
                 });
-                flag = false;
+                //flag = false;
                 return;
             }
 
-            indexes = getIndexes(_dataProvider.getData(), 0.2);
-            Parallel.ForEach(genomeList, _parallelOptions, delegate (TGenome genome)
-            {
-                IBlackBox phenome = (IBlackBox)genome.CachedPhenome;
-                if (null == phenome)
-                {   // Decode the phenome and store a ref against the genome.
-                    phenome = _genomeDecoder.Decode(genome);
-                    genome.CachedPhenome = phenome;
-                }
+            //indexes = getIndexes(_dataProvider.getData(), 0.2);
+            //Parallel.ForEach(genomeList, _parallelOptions, delegate (TGenome genome)
+            //{
+            //    IBlackBox phenome = (IBlackBox)genome.CachedPhenome;
+            //    if (null == phenome)
+            //    {   // Decode the phenome and store a ref against the genome.
+            //        phenome = _genomeDecoder.Decode(genome);
+            //        genome.CachedPhenome = phenome;
+            //    }
 
-                if (null == phenome)
-                {   // Non-viable genome.
-                    genome.EvaluationInfo.SetFitness(0.0);
-                    genome.EvaluationInfo.AuxFitnessArr = null;
-                }
-                else
-                {
-                    _phenomeEvaluator.Indexes = indexes;
-                    FitnessInfo fitnessInfo = _phenomeEvaluator.Evaluate(phenome);
-                    genome.EvaluationInfo.SetFitness(fitnessInfo._fitness);
-                    genome.EvaluationInfo.SetEvalFitness(fitnessInfo._evalFitness);
-                    genome.EvaluationInfo.AuxFitnessArr = fitnessInfo._auxFitnessArr;
-                }
-            });
-            flag = true;
+            //    if (null == phenome)
+            //    {   // Non-viable genome.
+            //        genome.EvaluationInfo.SetFitness(0.0);
+            //        genome.EvaluationInfo.AuxFitnessArr = null;
+            //    }
+            //    else
+            //    {
+            //        _phenomeEvaluator.Indexes = indexes;
+            //        FitnessInfo fitnessInfo = _phenomeEvaluator.Evaluate(phenome);
+            //        genome.EvaluationInfo.SetFitness(fitnessInfo._fitness);
+            //        genome.EvaluationInfo.SetEvalFitness(fitnessInfo._evalFitness);
+            //        genome.EvaluationInfo.AuxFitnessArr = fitnessInfo._auxFitnessArr;
+            //    }
+            //});
+            //flag = true;
         }
 
         private List<int> getIndexes(Dataset dataset, double subSample)
