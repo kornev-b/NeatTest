@@ -7,6 +7,7 @@ namespace SharpNeat.Domains.Classification
 {
     public class OverfittingParams
     {
+        public bool dropoutEnabled;
         public double dropoutInputP = 1;
         public double dropoutHiddenP = 0.5;
         public int triggerN = 3;

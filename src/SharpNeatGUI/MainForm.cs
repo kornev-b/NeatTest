@@ -334,6 +334,7 @@ namespace SharpNeatGUI
                 overfittingParams.interleaved = checkBoxInterleavedSubsample.Checked;
                 overfittingParams.interleavedStartSubsample = ParseDouble(txtInterleavedSubsamplingStart, 1);
                 overfittingParams.interleavedCrossSubsample = ParseDouble(txtInterleavedSubsamplingCross, 0.2);
+                overfittingParams.dropoutEnabled = checkBoxDropoutEnabled.Checked;
             }
         }
 

@@ -28,9 +28,7 @@ namespace SharpNeat.Domains.Classification.dota2
         readonly EvaluationMethod _evalMethod;
         FastRandom rand = new FastRandom();
         private static bool flag = true;
-        private OverfittingParams _overfittingParams = new OverfittingParams();
-
-        public OverfittingParams OverfittingParams { get { return _overfittingParams; } }
+        public OverfittingParams _overfittingParams = new OverfittingParams();
 
         delegate void EvaluationMethod(IList<TGenome> genomeList);
 

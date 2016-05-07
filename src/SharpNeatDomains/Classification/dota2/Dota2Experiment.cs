@@ -138,6 +138,7 @@ namespace SharpNeat.Domains.Classification.dota2
             Dota2DataProvider dataProvider = new Dota2DataProvider();
             evaluator.DataProvider = dataProvider;
             evaluator.Fitness = _fitness;
+            evaluator._overfittingParams = _overfittingParams;
             dataProvider.getData();
             dataProvider.getEvalData();
             // Create the evolution algorithm.
@@ -148,9 +149,10 @@ namespace SharpNeat.Domains.Classification.dota2
             IGenomeDecoder<NeatGenome, IBlackBox> genomeDecoder = CreateGenomeDecoder();
 
             // Create a genome list evaluator. This packages up the genome decoder with the genome evaluator.
-            IGenomeListEvaluator<NeatGenome> innerEvaluator = 
+            Dota2GenomeListEvaluator<NeatGenome> innerEvaluator = 
                 //new ParallelGenomeListEvaluator<NeatGenome,IBlackBox>(genomeDecoder, evaluator, _parallelOptions, true);
                 new Dota2GenomeListEvaluator<NeatGenome>(genomeDecoder, evaluator, _parallelOptions, true, dataProvider);
+            innerEvaluator._overfittingParams = _overfittingParams;
 
             // Wrap the list evaluator in a 'selective' evaulator that will only evaluate new genomes. That is, we skip re-evaluating any genomes
             // that were in the population in previous generations (elite genomes). This is determined by examining each genome's evaluation info object.

@@ -111,6 +111,21 @@
             this.txtParamOffspringCrossover = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
             this.txtParamOffspringAsexual = new System.Windows.Forms.TextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtInterleavedSubsamplingCross = new System.Windows.Forms.TextBox();
+            this.checkBoxInterleavedSubsample = new System.Windows.Forms.CheckBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.txtSubsample = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.txtInterleavedSubsamplingStart = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.txtInputDropout = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.txtDropoutTrigger = new System.Windows.Forms.TextBox();
+            this.txtDropoutHidden = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadPopulationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -146,21 +161,7 @@
             this.btnCopyLogToClipboard = new System.Windows.Forms.Button();
             this.lbxLog = new System.Windows.Forms.ListBox();
             this.populationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.txtInputDropout = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.txtDropoutTrigger = new System.Windows.Forms.TextBox();
-            this.txtDropoutHidden = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.txtSubsample = new System.Windows.Forms.TextBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.txtInterleavedSubsamplingStart = new System.Windows.Forms.TextBox();
-            this.checkBoxInterleavedSubsample = new System.Windows.Forms.CheckBox();
-            this.txtInterleavedSubsamplingCross = new System.Windows.Forms.TextBox();
+            this.checkBoxDropoutEnabled = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -175,10 +176,10 @@
             this.tabPage2.SuspendLayout();
             this.gbxNeatGenomeParameters.SuspendLayout();
             this.gbxEAParameters.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -985,6 +986,155 @@
             this.txtParamOffspringAsexual.TabIndex = 48;
             this.txtParamOffspringAsexual.Text = "0.5";
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.groupBox2);
+            this.tabPage3.Controls.Add(this.groupBox1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(516, 421);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Overfitting";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox2.Controls.Add(this.txtInterleavedSubsamplingCross);
+            this.groupBox2.Controls.Add(this.checkBoxInterleavedSubsample);
+            this.groupBox2.Controls.Add(this.label24);
+            this.groupBox2.Controls.Add(this.txtSubsample);
+            this.groupBox2.Controls.Add(this.label30);
+            this.groupBox2.Controls.Add(this.txtInterleavedSubsamplingStart);
+            this.groupBox2.Location = new System.Drawing.Point(261, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(247, 116);
+            this.groupBox2.TabIndex = 18;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Subsampling";
+            // 
+            // txtInterleavedSubsamplingCross
+            // 
+            this.txtInterleavedSubsamplingCross.Enabled = false;
+            this.txtInterleavedSubsamplingCross.Location = new System.Drawing.Point(73, 79);
+            this.txtInterleavedSubsamplingCross.Name = "txtInterleavedSubsamplingCross";
+            this.txtInterleavedSubsamplingCross.Size = new System.Drawing.Size(48, 20);
+            this.txtInterleavedSubsamplingCross.TabIndex = 59;
+            this.txtInterleavedSubsamplingCross.Text = "0.2";
+            // 
+            // checkBoxInterleavedSubsample
+            // 
+            this.checkBoxInterleavedSubsample.AutoSize = true;
+            this.checkBoxInterleavedSubsample.Location = new System.Drawing.Point(7, 51);
+            this.checkBoxInterleavedSubsample.Name = "checkBoxInterleavedSubsample";
+            this.checkBoxInterleavedSubsample.Size = new System.Drawing.Size(140, 17);
+            this.checkBoxInterleavedSubsample.TabIndex = 58;
+            this.checkBoxInterleavedSubsample.Text = "Interleaved subsampling";
+            this.checkBoxInterleavedSubsample.UseVisualStyleBackColor = true;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(56, 25);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(59, 13);
+            this.label24.TabIndex = 57;
+            this.label24.Text = "Subsample";
+            // 
+            // txtSubsample
+            // 
+            this.txtSubsample.Location = new System.Drawing.Point(6, 22);
+            this.txtSubsample.Name = "txtSubsample";
+            this.txtSubsample.Size = new System.Drawing.Size(48, 20);
+            this.txtSubsample.TabIndex = 56;
+            this.txtSubsample.Text = "1";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Enabled = false;
+            this.label30.Location = new System.Drawing.Point(58, 82);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(10, 13);
+            this.label30.TabIndex = 55;
+            this.label30.Text = "-";
+            // 
+            // txtInterleavedSubsamplingStart
+            // 
+            this.txtInterleavedSubsamplingStart.Enabled = false;
+            this.txtInterleavedSubsamplingStart.Location = new System.Drawing.Point(6, 79);
+            this.txtInterleavedSubsamplingStart.Name = "txtInterleavedSubsamplingStart";
+            this.txtInterleavedSubsamplingStart.Size = new System.Drawing.Size(48, 20);
+            this.txtInterleavedSubsamplingStart.TabIndex = 21;
+            this.txtInterleavedSubsamplingStart.Text = "1";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox1.Controls.Add(this.checkBoxDropoutEnabled);
+            this.groupBox1.Controls.Add(this.label22);
+            this.groupBox1.Controls.Add(this.txtInputDropout);
+            this.groupBox1.Controls.Add(this.label23);
+            this.groupBox1.Controls.Add(this.label29);
+            this.groupBox1.Controls.Add(this.txtDropoutTrigger);
+            this.groupBox1.Controls.Add(this.txtDropoutHidden);
+            this.groupBox1.Location = new System.Drawing.Point(8, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(247, 138);
+            this.groupBox1.TabIndex = 17;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Dropout";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(56, 45);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(147, 13);
+            this.label22.TabIndex = 57;
+            this.label22.Text = "Input node dropout probability";
+            // 
+            // txtInputDropout
+            // 
+            this.txtInputDropout.Location = new System.Drawing.Point(6, 42);
+            this.txtInputDropout.Name = "txtInputDropout";
+            this.txtInputDropout.Size = new System.Drawing.Size(48, 20);
+            this.txtInputDropout.TabIndex = 56;
+            this.txtInputDropout.Text = "1";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(56, 71);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(157, 13);
+            this.label23.TabIndex = 55;
+            this.label23.Text = "Hidden node dropout probability";
+            // 
+            // label29
+            // 
+            this.label29.Location = new System.Drawing.Point(56, 96);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(150, 19);
+            this.label29.TabIndex = 24;
+            this.label29.Text = "Hidden nodes trigger amount";
+            // 
+            // txtDropoutTrigger
+            // 
+            this.txtDropoutTrigger.Location = new System.Drawing.Point(6, 94);
+            this.txtDropoutTrigger.Name = "txtDropoutTrigger";
+            this.txtDropoutTrigger.Size = new System.Drawing.Size(48, 20);
+            this.txtDropoutTrigger.TabIndex = 23;
+            this.txtDropoutTrigger.Text = "3";
+            // 
+            // txtDropoutHidden
+            // 
+            this.txtDropoutHidden.Location = new System.Drawing.Point(6, 68);
+            this.txtDropoutHidden.Name = "txtDropoutHidden";
+            this.txtDropoutHidden.Size = new System.Drawing.Size(48, 20);
+            this.txtDropoutHidden.TabIndex = 21;
+            this.txtDropoutHidden.Text = "0.5";
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1266,153 +1416,15 @@
             this.populationToolStripMenuItem.Name = "populationToolStripMenuItem";
             this.populationToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             // 
-            // tabPage3
+            // checkBoxDropoutEnabled
             // 
-            this.tabPage3.Controls.Add(this.groupBox2);
-            this.tabPage3.Controls.Add(this.groupBox1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(516, 421);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Overfitting";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.Controls.Add(this.label22);
-            this.groupBox1.Controls.Add(this.txtInputDropout);
-            this.groupBox1.Controls.Add(this.label23);
-            this.groupBox1.Controls.Add(this.label29);
-            this.groupBox1.Controls.Add(this.txtDropoutTrigger);
-            this.groupBox1.Controls.Add(this.txtDropoutHidden);
-            this.groupBox1.Location = new System.Drawing.Point(8, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(247, 116);
-            this.groupBox1.TabIndex = 17;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Dropout";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(56, 25);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(147, 13);
-            this.label22.TabIndex = 57;
-            this.label22.Text = "Input node dropout probability";
-            // 
-            // txtInputDropout
-            // 
-            this.txtInputDropout.Location = new System.Drawing.Point(6, 22);
-            this.txtInputDropout.Name = "txtInputDropout";
-            this.txtInputDropout.Size = new System.Drawing.Size(48, 20);
-            this.txtInputDropout.TabIndex = 56;
-            this.txtInputDropout.Text = "1";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(56, 51);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(157, 13);
-            this.label23.TabIndex = 55;
-            this.label23.Text = "Hidden node dropout probability";
-            // 
-            // label29
-            // 
-            this.label29.Location = new System.Drawing.Point(56, 76);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(150, 19);
-            this.label29.TabIndex = 24;
-            this.label29.Text = "Hidden nodes trigger amount";
-            // 
-            // txtDropoutTrigger
-            // 
-            this.txtDropoutTrigger.Location = new System.Drawing.Point(6, 74);
-            this.txtDropoutTrigger.Name = "txtDropoutTrigger";
-            this.txtDropoutTrigger.Size = new System.Drawing.Size(48, 20);
-            this.txtDropoutTrigger.TabIndex = 23;
-            this.txtDropoutTrigger.Text = "3";
-            // 
-            // txtDropoutHidden
-            // 
-            this.txtDropoutHidden.Location = new System.Drawing.Point(6, 48);
-            this.txtDropoutHidden.Name = "txtDropoutHidden";
-            this.txtDropoutHidden.Size = new System.Drawing.Size(48, 20);
-            this.txtDropoutHidden.TabIndex = 21;
-            this.txtDropoutHidden.Text = "0.5";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox2.Controls.Add(this.txtInterleavedSubsamplingCross);
-            this.groupBox2.Controls.Add(this.checkBoxInterleavedSubsample);
-            this.groupBox2.Controls.Add(this.label24);
-            this.groupBox2.Controls.Add(this.txtSubsample);
-            this.groupBox2.Controls.Add(this.label30);
-            this.groupBox2.Controls.Add(this.txtInterleavedSubsamplingStart);
-            this.groupBox2.Location = new System.Drawing.Point(261, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(247, 116);
-            this.groupBox2.TabIndex = 18;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Subsampling";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(56, 25);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(59, 13);
-            this.label24.TabIndex = 57;
-            this.label24.Text = "Subsample";
-            // 
-            // txtSubsample
-            // 
-            this.txtSubsample.Location = new System.Drawing.Point(6, 22);
-            this.txtSubsample.Name = "txtSubsample";
-            this.txtSubsample.Size = new System.Drawing.Size(48, 20);
-            this.txtSubsample.TabIndex = 56;
-            this.txtSubsample.Text = "1";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Enabled = false;
-            this.label30.Location = new System.Drawing.Point(58, 82);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(10, 13);
-            this.label30.TabIndex = 55;
-            this.label30.Text = "-";
-            // 
-            // txtInterleavedSubsamplingStart
-            // 
-            this.txtInterleavedSubsamplingStart.Enabled = false;
-            this.txtInterleavedSubsamplingStart.Location = new System.Drawing.Point(6, 79);
-            this.txtInterleavedSubsamplingStart.Name = "txtInterleavedSubsamplingStart";
-            this.txtInterleavedSubsamplingStart.Size = new System.Drawing.Size(48, 20);
-            this.txtInterleavedSubsamplingStart.TabIndex = 21;
-            this.txtInterleavedSubsamplingStart.Text = "1";
-            // 
-            // checkBoxInterleavedSubsample
-            // 
-            this.checkBoxInterleavedSubsample.AutoSize = true;
-            this.checkBoxInterleavedSubsample.Location = new System.Drawing.Point(7, 51);
-            this.checkBoxInterleavedSubsample.Name = "checkBoxInterleavedSubsample";
-            this.checkBoxInterleavedSubsample.Size = new System.Drawing.Size(140, 17);
-            this.checkBoxInterleavedSubsample.TabIndex = 58;
-            this.checkBoxInterleavedSubsample.Text = "Interleaved subsampling";
-            this.checkBoxInterleavedSubsample.UseVisualStyleBackColor = true;
-            // 
-            // txtInterleavedSubsamplingCross
-            // 
-            this.txtInterleavedSubsamplingCross.Enabled = false;
-            this.txtInterleavedSubsamplingCross.Location = new System.Drawing.Point(73, 79);
-            this.txtInterleavedSubsamplingCross.Name = "txtInterleavedSubsamplingCross";
-            this.txtInterleavedSubsamplingCross.Size = new System.Drawing.Size(48, 20);
-            this.txtInterleavedSubsamplingCross.TabIndex = 59;
-            this.txtInterleavedSubsamplingCross.Text = "0.2";
+            this.checkBoxDropoutEnabled.AutoSize = true;
+            this.checkBoxDropoutEnabled.Location = new System.Drawing.Point(6, 19);
+            this.checkBoxDropoutEnabled.Name = "checkBoxDropoutEnabled";
+            this.checkBoxDropoutEnabled.Size = new System.Drawing.Size(65, 17);
+            this.checkBoxDropoutEnabled.TabIndex = 59;
+            this.checkBoxDropoutEnabled.Text = "Enabled";
+            this.checkBoxDropoutEnabled.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1445,13 +1457,13 @@
             this.gbxNeatGenomeParameters.PerformLayout();
             this.gbxEAParameters.ResumeLayout(false);
             this.gbxEAParameters.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1590,5 +1602,6 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.TextBox txtInterleavedSubsamplingStart;
         private System.Windows.Forms.TextBox txtInterleavedSubsamplingCross;
+        private System.Windows.Forms.CheckBox checkBoxDropoutEnabled;
     }
 }

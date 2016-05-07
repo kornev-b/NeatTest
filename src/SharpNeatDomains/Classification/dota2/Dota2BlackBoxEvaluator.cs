@@ -14,9 +14,7 @@ namespace SharpNeat.Domains.Classification.dota2
         const double AcceptedAccuracy = 1d;
         Evaluator evaluator = new Evaluator();
         public List<int> Indexes { get; set; }
-        private OverfittingParams _overfittingParams = new OverfittingParams();
-
-        public OverfittingParams OverfittingParams { get { return _overfittingParams; } }
+        public OverfittingParams _overfittingParams = new OverfittingParams();
 
         public Dota2BlackBoxEvaluator()
         {

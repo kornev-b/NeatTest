@@ -52,6 +52,7 @@ namespace SharpNeat.Domains.Classification
             //info.auc = Auc2(predictedProbs, expectedProbs);
             return info;
         }
+
         public EvaluateInfo Evaluate(IBlackBox box, Dataset dataset)
         {
             if (_indexes != null) return Evaluate2(box, dataset);
@@ -81,6 +82,7 @@ namespace SharpNeat.Domains.Classification
             //info.auc = Auc2(predictedProbs, expectedProbs);
             return info;
         }
+
         public EvaluateInfo Evaluate2(IBlackBox box, Dataset dataset)
         {
             EvaluateInfo info = new EvaluateInfo();
@@ -132,7 +134,9 @@ namespace SharpNeat.Domains.Classification
             {
                 box.InputSignalArray[nodeId++] = input;
             }
-            box.ActivateWithDropout(_overfittingParams.dropoutInputP, _overfittingParams.dropoutHiddenP, _overfittingParams.triggerN);
+            if (_overfittingParams.dropoutEnabled)
+                box.ActivateWithDropout(_overfittingParams.dropoutInputP, _overfittingParams.dropoutHiddenP, _overfittingParams.triggerN);
+            else box.Activate();
             box.OutputSignalArray.CopyTo(outputs, 0);        
             return outputs;
         }
