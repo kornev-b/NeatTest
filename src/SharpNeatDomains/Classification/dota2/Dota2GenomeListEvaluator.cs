@@ -28,6 +28,7 @@ namespace SharpNeat.Domains.Classification.dota2
         readonly EvaluationMethod _evalMethod;
         FastRandom rand = new FastRandom();
         private static bool flag = true;
+        public OverfittingParams _overfittingParams = new OverfittingParams();
 
         delegate void EvaluationMethod(IList<TGenome> genomeList);
 
@@ -135,51 +136,40 @@ namespace SharpNeat.Domains.Classification.dota2
         /// </summary>
         private void Evaluate_Caching(IList<TGenome> genomeList)
         {
-            List<int> indexes;
+            if (!_overfittingParams.interleaved)
+            {
+                EvaluateSubsample(genomeList, _overfittingParams.subsample);
+                return;
+            }
             if (flag)
             {
-                //indexes = getIndexes(_dataProvider.getData(), 1);
-                Parallel.ForEach(genomeList, _parallelOptions, delegate (TGenome genome)
-                {
-                    IBlackBox phenome = (IBlackBox)genome.CachedPhenome;
-                    if (null == phenome)
-                    {
-                    // Decode the phenome and store a ref against the genome.
-                    phenome = _genomeDecoder.Decode(genome);
-                        genome.CachedPhenome = phenome;
-                    }
-
-                    if (null == phenome)
-                    {
-                    // Non-viable genome.
-                    genome.EvaluationInfo.SetFitness(0.0);
-                        genome.EvaluationInfo.AuxFitnessArr = null;
-                    }
-                    else
-                    {
-                        _phenomeEvaluator.Indexes = null;
-                        FitnessInfo fitnessInfo = _phenomeEvaluator.Evaluate(phenome);
-                        genome.EvaluationInfo.SetFitness(fitnessInfo._fitness);
-                    //genome.EvaluationInfo.SetEvalFitness(fitnessInfo._evalFitness);
-                    genome.EvaluationInfo.AuxFitnessArr = fitnessInfo._auxFitnessArr;
-                    }
-                });
+                EvaluateSubsample(genomeList, _overfittingParams.interleavedStartSubsample);
                 flag = false;
                 return;
             }
 
-            indexes = getIndexes(_dataProvider.getData(), 0.2);
+            EvaluateSubsample(genomeList, _overfittingParams.interleavedCrossSubsample);
+            flag = true;
+        }
+
+        private void EvaluateSubsample(IList<TGenome> genomeList, double subsample)
+        {
+            List<int> indexes = null;
+            if (subsample < 1)
+                indexes = getIndexes(_dataProvider.getData(), subsample);
             Parallel.ForEach(genomeList, _parallelOptions, delegate (TGenome genome)
             {
                 IBlackBox phenome = (IBlackBox)genome.CachedPhenome;
                 if (null == phenome)
-                {   // Decode the phenome and store a ref against the genome.
+                {
+                    // Decode the phenome and store a ref against the genome.
                     phenome = _genomeDecoder.Decode(genome);
                     genome.CachedPhenome = phenome;
                 }
 
                 if (null == phenome)
-                {   // Non-viable genome.
+                {
+                    // Non-viable genome.
                     genome.EvaluationInfo.SetFitness(0.0);
                     genome.EvaluationInfo.AuxFitnessArr = null;
                 }
@@ -188,11 +178,10 @@ namespace SharpNeat.Domains.Classification.dota2
                     _phenomeEvaluator.Indexes = indexes;
                     FitnessInfo fitnessInfo = _phenomeEvaluator.Evaluate(phenome);
                     genome.EvaluationInfo.SetFitness(fitnessInfo._fitness);
-                    genome.EvaluationInfo.SetEvalFitness(fitnessInfo._evalFitness);
+                    //genome.EvaluationInfo.SetEvalFitness(fitnessInfo._evalFitness);
                     genome.EvaluationInfo.AuxFitnessArr = fitnessInfo._auxFitnessArr;
                 }
             });
-            flag = true;
         }
 
         private List<int> getIndexes(Dataset dataset, double subSample)

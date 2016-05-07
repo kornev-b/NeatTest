@@ -190,7 +190,7 @@ namespace SharpNeat.Phenomes.NeuralNets
             }
         }
 
-        public void ActivateWithDropout()
+        public void ActivateWithDropout(double inputP, double hiddenP, int n)
         {
             throw new System.NotImplementedException();
         }

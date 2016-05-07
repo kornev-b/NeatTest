@@ -28,6 +28,7 @@ namespace SharpNeat.Domains.Classification.Taxi
         readonly EvaluationMethod _evalMethod;
         FastRandom rand = new FastRandom();
         private static bool flag = true;
+        public OverfittingParams OverfittingParams;
 
         delegate void EvaluationMethod(IList<TGenome> genomeList);
 
@@ -135,64 +136,52 @@ namespace SharpNeat.Domains.Classification.Taxi
         /// </summary>
         private void Evaluate_Caching(IList<TGenome> genomeList)
         {
-            List<int> indexes;
+            if (!OverfittingParams.interleaved)
+            {
+                EvaluateSubsample(genomeList, OverfittingParams.subsample);
+                return;
+            }
             if (flag)
             {
-                //indexes = getIndexes(_dataProvider.getData(), 1);
-                Parallel.ForEach(genomeList, _parallelOptions, delegate (TGenome genome)
-                {
-                    IBlackBox phenome = (IBlackBox)genome.CachedPhenome;
-                    if (null == phenome)
-                    {
-                        // Decode the phenome and store a ref against the genome.
-                        phenome = _genomeDecoder.Decode(genome);
-                        genome.CachedPhenome = phenome;
-                    }
-
-                    if (null == phenome)
-                    {
-                        // Non-viable genome.
-                        genome.EvaluationInfo.SetFitness(0.0);
-                        genome.EvaluationInfo.AuxFitnessArr = null;
-                    }
-                    else
-                    {
-                        _phenomeEvaluator.Indexes = null;
-                        FitnessInfo fitnessInfo = _phenomeEvaluator.Evaluate(phenome);
-                        genome.EvaluationInfo.SetFitness(fitnessInfo._fitness);
-                        //genome.EvaluationInfo.SetEvalFitness(fitnessInfo._evalFitness);
-                        genome.EvaluationInfo.AuxFitnessArr = fitnessInfo._auxFitnessArr;
-                    }
-                });
-                //flag = false;
+                EvaluateSubsample(genomeList, OverfittingParams.interleavedStartSubsample);
+                flag = false;
                 return;
             }
 
-            //indexes = getIndexes(_dataProvider.getData(), 0.1);
-            //Parallel.ForEach(genomeList, _parallelOptions, delegate (TGenome genome)
-            //{
-            //    IBlackBox phenome = (IBlackBox)genome.CachedPhenome;
-            //    if (null == phenome)
-            //    {   // Decode the phenome and store a ref against the genome.
-            //            phenome = _genomeDecoder.Decode(genome);
-            //        genome.CachedPhenome = phenome;
-            //    }
+            EvaluateSubsample(genomeList, OverfittingParams.interleavedCrossSubsample);
+            flag = true;
+        }
 
-            //    if (null == phenome)
-            //    {   // Non-viable genome.
-            //            genome.EvaluationInfo.SetFitness(0.0);
-            //        genome.EvaluationInfo.AuxFitnessArr = null;
-            //    }
-            //    else
-            //    {
-            //        _phenomeEvaluator.Indexes = indexes;
-            //        FitnessInfo fitnessInfo = _phenomeEvaluator.Evaluate(phenome);
-            //        genome.EvaluationInfo.SetFitness((genome.EvaluationInfo.Fitness + fitnessInfo._fitness) / 2);
-            //        genome.EvaluationInfo.SetEvalFitness(fitnessInfo._evalFitness);
-            //        genome.EvaluationInfo.AuxFitnessArr = fitnessInfo._auxFitnessArr;
-            //    }
-            //});
-            //flag = true;
+        private void EvaluateSubsample(IList<TGenome> genomeList, double subsample)
+        {
+            List<int> indexes = null;
+            if (subsample < 1)
+                indexes = getIndexes(_dataProvider.getData(), subsample);
+            Parallel.ForEach(genomeList, _parallelOptions, delegate (TGenome genome)
+            {
+                IBlackBox phenome = (IBlackBox)genome.CachedPhenome;
+                if (null == phenome)
+                {
+                    // Decode the phenome and store a ref against the genome.
+                    phenome = _genomeDecoder.Decode(genome);
+                    genome.CachedPhenome = phenome;
+                }
+
+                if (null == phenome)
+                {
+                    // Non-viable genome.
+                    genome.EvaluationInfo.SetFitness(0.0);
+                    genome.EvaluationInfo.AuxFitnessArr = null;
+                }
+                else
+                {
+                    _phenomeEvaluator.Indexes = indexes;
+                    FitnessInfo fitnessInfo = _phenomeEvaluator.Evaluate(phenome);
+                    genome.EvaluationInfo.SetFitness(fitnessInfo._fitness);
+                    //genome.EvaluationInfo.SetEvalFitness(fitnessInfo._evalFitness);
+                    genome.EvaluationInfo.AuxFitnessArr = fitnessInfo._auxFitnessArr;
+                }
+            });
         }
 
         private List<int> getIndexes(Dataset dataset, double subSample)

@@ -193,5 +193,11 @@ namespace CrossValidation
                 }
             }
         }
+
+        private void fitnessComparasionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GraphForm graphForm = new GraphForm();
+            graphForm.Show();
+        }
     }
 }

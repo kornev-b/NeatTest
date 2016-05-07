@@ -253,7 +253,11 @@ namespace SharpNeat.Phenomes.NeuralNets
         /// <summary>
         /// Activate the black box. The dropout technique is used during the activation.
         /// </summary>
-        public virtual void ActivateWithDropout()
+        /// <param name="inputP">Input node dropout probability</param>
+        /// <param name="hiddenP">Hidden node dropout probability</param>
+        /// <param name="pn">Rate of hidden nodes to remain after dropout</param>
+        /// <param name="n">Number of nodes in a hidden layer to start dropout </param>
+        public virtual void ActivateWithDropout(double inputP, double hiddenP, int n)
         {
             // Reset any state from a previous activation.
             for (int i = _inputAndBiasNodeCount; i < _activationArr.Length; i++)
@@ -262,7 +266,7 @@ namespace SharpNeat.Phenomes.NeuralNets
             }
             //Stopwatch sw = new Stopwatch();
             //sw.Start();
-            randomizeDropout();
+            randomizeDropout(inputP, hiddenP, n);
             //Debug.Print("dropout: " + sw.ElapsedMilliseconds);
             // Process all layers in turn.
             int conIdx = 0, nodeIdx = _inputAndBiasNodeCount;
@@ -288,20 +292,35 @@ namespace SharpNeat.Phenomes.NeuralNets
             }
         }
 
-        private void randomizeDropout()
+        private void randomizeDropout(double inputP, double hiddenP, int n)
         {
-            //int[] inputDropout = BernoulliRandomizer.NextP08(_inputAndBiasNodeCount);
-            for (int i = 0; i < _inputAndBiasNodeCount; i++)
+            if (inputP == 0)
             {
-                _dropoutArr[i] = /*inputDropout[i];*/ 1;
-            }
-            int hiddenCount = _dropoutArr.Length - _inputAndBiasNodeCount - 1;
-            if (hiddenCount > 0)
-            {
-                int[] hiddentDropoutArr = BernoulliRandomizer.NextP05(_dropoutArr.Length - _inputAndBiasNodeCount - 1);
-                for (int i = 0; i < hiddentDropoutArr.Length; i++)
+                for (int i = 0; i < _inputAndBiasNodeCount; i++)
                 {
-                    _dropoutArr[i + _inputAndBiasNodeCount] = hiddentDropoutArr[i];
+                    _dropoutArr[i] = 1;
+                }
+            }
+            else
+            {
+                int[] inputDropout = BernoulliRandomizer.Next(_inputAndBiasNodeCount, 1 - inputP);
+                for (int i = 0; i < _inputAndBiasNodeCount; i++)
+                {
+                    _dropoutArr[i] = inputDropout[i];
+                }
+            }
+            int nodeIdx = _inputAndBiasNodeCount;
+            for (int layerIdx = 1; layerIdx < _layerInfoArr.Length; layerIdx++)
+            {
+                LayerInfo layerInfo = _layerInfoArr[layerIdx - 1];
+                int nodeCount = layerInfo._endNodeIdx - nodeIdx;
+                if (nodeCount > n)
+                {
+                    int[] hiddentDropoutArr = BernoulliRandomizer.Next(nodeCount, hiddenP);
+                    for (int i = 0; i < hiddentDropoutArr.Length; i++)
+                    {
+                        _dropoutArr[i + nodeIdx] = hiddentDropoutArr[i];
+                    }
                 }
             }
             

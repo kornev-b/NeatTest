@@ -17,6 +17,9 @@
  * along with SharpNEAT.  If not, see <http://www.gnu.org/licenses/>.
  */
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using SharpNeat.EvolutionAlgorithms;
 using SharpNeat.Genomes.Neat;
@@ -33,6 +36,7 @@ namespace SharpNeatGUI
         AbstractGenerationalAlgorithm<NeatGenome> _ea;
         TimeSeriesDataSource[] _dataSourceArray;
         RollingPointPairList[] _pointPlotArray;
+        private List<string> data;
         GraphPane _graphPane;
 
         #region Constructor
@@ -47,6 +51,7 @@ namespace SharpNeatGUI
 
             this.Text = string.Format("SharpNEAT Graph - {0}", title);
             _dataSourceArray = dataSourceArray;
+            data = new List<string>(_dataSourceArray.Length);
             InitGraph(title, xAxisTitle, y1AxisTitle, y2AxisTitle, dataSourceArray);
 
             _ea = ea;
@@ -136,13 +141,17 @@ namespace SharpNeatGUI
 
                     // For each series, generate a point and add it to that series' point-pair list.
                     int sourceCount = _dataSourceArray.Length;
+                    StringBuilder sb = new StringBuilder(8);             
                     for(int i=0; i<sourceCount; i++)
                     {
                         TimeSeriesDataSource ds = _dataSourceArray[i];
                         Point2DDouble point  = ds.GetPoint();
+                        sb.Append(point.X).Append(" ").Append(point.Y).Append(" ");        
                         _pointPlotArray[i].Add(point.X, point.Y);
                     }
-
+                    sb.Remove(sb.Length - 1, 1);
+                    data.Add(sb.ToString());
+                    File.WriteAllLines("fitness_graph.txt", data);
                     // Trigger graph to redraw.
                     zed.AxisChange();
                     Refresh();
@@ -158,5 +167,10 @@ namespace SharpNeatGUI
         }
 
         #endregion
+
+        private void zed_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

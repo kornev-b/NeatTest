@@ -14,6 +14,7 @@ namespace SharpNeat.Domains.Classification.dota2
         const double AcceptedAccuracy = 1d;
         Evaluator evaluator = new Evaluator();
         public List<int> Indexes { get; set; }
+        public OverfittingParams _overfittingParams = new OverfittingParams();
 
         public Dota2BlackBoxEvaluator()
         {
@@ -37,6 +38,7 @@ namespace SharpNeat.Domains.Classification.dota2
         public FitnessInfo Evaluate(IBlackBox phenome)
         {
             BinaryEvaluator binaryEvaluator = new BinaryEvaluator(Indexes);
+            binaryEvaluator._overfittingParams = _overfittingParams;
             _evalCount++;
             var dataset = DataProvider.getData();
             EvaluateInfo info = binaryEvaluator.Evaluate(phenome, dataset);

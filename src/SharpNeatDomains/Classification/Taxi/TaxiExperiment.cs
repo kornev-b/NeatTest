@@ -20,7 +20,7 @@ using SharpNeat.SpeciationStrategies;
 
 namespace SharpNeat.Domains.Classification.Taxi
 {
-    public class TaxiExperiment : IGuiNeatExperiment
+    public class TaxiExperiment : OverfittingExperiment
     {
         private const int SEED = 24;
         NeatEvolutionAlgorithmParameters _eaParams;
@@ -35,6 +35,7 @@ namespace SharpNeat.Domains.Classification.Taxi
         ParallelOptions _parallelOptions;
         Fitness _fitness = Fitness.FMEASURE;
         string _trainFilePath;
+        OverfittingParams _overfittingParams = new OverfittingParams();
 
         public int DefaultPopulationSize
         {
@@ -69,6 +70,11 @@ namespace SharpNeat.Domains.Classification.Taxi
         public int OutputCount
         {
             get { return 1; }
+        }
+
+        public OverfittingParams OverfittingParams
+        {
+            get { return _overfittingParams; }
         }
 
         public void Initialize(string name, XmlElement xmlConfig)
@@ -132,6 +138,7 @@ namespace SharpNeat.Domains.Classification.Taxi
             TaxiDataProvider dataProvider = new TaxiDataProvider();
             evaluator.DataProvider = dataProvider;
             evaluator.Fitness = _fitness;
+            evaluator.OverfittingParams = _overfittingParams;
             dataProvider.getData();
             dataProvider.getEvalData();
             // Create the evolution algorithm.
@@ -142,9 +149,10 @@ namespace SharpNeat.Domains.Classification.Taxi
             IGenomeDecoder<NeatGenome, IBlackBox> genomeDecoder = CreateGenomeDecoder();
 
             // Create a genome list evaluator. This packages up the genome decoder with the genome evaluator.
-            IGenomeListEvaluator<NeatGenome> innerEvaluator = 
+            TaxiGenomeListEvaluator<NeatGenome> innerEvaluator = 
                 //new ParallelGenomeListEvaluator<NeatGenome,IBlackBox>(genomeDecoder, evaluator, _parallelOptions, true);
                 new TaxiGenomeListEvaluator<NeatGenome>(genomeDecoder, evaluator, _parallelOptions, true, dataProvider);
+            innerEvaluator.OverfittingParams = _overfittingParams;
 
             // Wrap the list evaluator in a 'selective' evaulator that will only evaluate new genomes. That is, we skip re-evaluating any genomes
             // that were in the population in previous generations (elite genomes). This is determined by examining each genome's evaluation info object.

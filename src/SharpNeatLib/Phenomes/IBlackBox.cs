@@ -70,7 +70,10 @@ namespace SharpNeat.Phenomes
         /// <summary>
         /// Activate the black box. The dropout technique is used during the activation.
         /// </summary>
-        void ActivateWithDropout();
+        /// <param name="inputP">Input node dropout probability</param>
+        /// <param name="hiddenP">Hidden node dropout probability</param>
+        /// <param name="n">Number of nodes in a hidden layer to start dropout </param>
+        void ActivateWithDropout(double inputP, double hiddenP, int n);
 
         /// <summary>
         /// Reset any internal state.

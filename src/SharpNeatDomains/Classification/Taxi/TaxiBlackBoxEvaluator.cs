@@ -14,6 +14,7 @@ namespace SharpNeat.Domains.Classification.Taxi
         const double AcceptedAccuracy = 1d;
         Evaluator evaluator = new Evaluator();
         public List<int> Indexes { get; set; }
+        public OverfittingParams OverfittingParams;
 
         public TaxiBlackBoxEvaluator()
         {
@@ -37,6 +38,7 @@ namespace SharpNeat.Domains.Classification.Taxi
         public FitnessInfo Evaluate(IBlackBox phenome)
         {
             BinaryEvaluator binaryEvaluator = new BinaryEvaluator(Indexes);
+            binaryEvaluator._overfittingParams = OverfittingParams;
             _evalCount++;
             var dataset = DataProvider.getData();
             EvaluateInfo info = binaryEvaluator.Evaluate(phenome, dataset);
