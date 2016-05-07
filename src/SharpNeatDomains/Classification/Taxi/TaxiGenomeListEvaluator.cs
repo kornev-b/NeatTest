@@ -135,7 +135,6 @@ namespace SharpNeat.Domains.Classification.Taxi
         /// </summary>
         private void Evaluate_Caching(IList<TGenome> genomeList)
         {
-            Stopwatch s = Stopwatch.StartNew();
             List<int> indexes;
             if (flag)
             {
@@ -165,36 +164,35 @@ namespace SharpNeat.Domains.Classification.Taxi
                         genome.EvaluationInfo.AuxFitnessArr = fitnessInfo._auxFitnessArr;
                     }
                 });
-                flag = false;
+                //flag = false;
                 return;
             }
 
-            indexes = getIndexes(_dataProvider.getData(), 0.1);
-            Parallel.ForEach(genomeList, _parallelOptions, delegate (TGenome genome)
-            {
-                IBlackBox phenome = (IBlackBox)genome.CachedPhenome;
-                if (null == phenome)
-                {   // Decode the phenome and store a ref against the genome.
-                        phenome = _genomeDecoder.Decode(genome);
-                    genome.CachedPhenome = phenome;
-                }
+            //indexes = getIndexes(_dataProvider.getData(), 0.1);
+            //Parallel.ForEach(genomeList, _parallelOptions, delegate (TGenome genome)
+            //{
+            //    IBlackBox phenome = (IBlackBox)genome.CachedPhenome;
+            //    if (null == phenome)
+            //    {   // Decode the phenome and store a ref against the genome.
+            //            phenome = _genomeDecoder.Decode(genome);
+            //        genome.CachedPhenome = phenome;
+            //    }
 
-                if (null == phenome)
-                {   // Non-viable genome.
-                        genome.EvaluationInfo.SetFitness(0.0);
-                    genome.EvaluationInfo.AuxFitnessArr = null;
-                }
-                else
-                {
-                    _phenomeEvaluator.Indexes = indexes;
-                    FitnessInfo fitnessInfo = _phenomeEvaluator.Evaluate(phenome);
-                    genome.EvaluationInfo.SetFitness((genome.EvaluationInfo.Fitness + fitnessInfo._fitness) / 2);
-                    genome.EvaluationInfo.SetEvalFitness(fitnessInfo._evalFitness);
-                    genome.EvaluationInfo.AuxFitnessArr = fitnessInfo._auxFitnessArr;
-                }
-            });
-            flag = true;
-            var time = s.ElapsedTicks;
+            //    if (null == phenome)
+            //    {   // Non-viable genome.
+            //            genome.EvaluationInfo.SetFitness(0.0);
+            //        genome.EvaluationInfo.AuxFitnessArr = null;
+            //    }
+            //    else
+            //    {
+            //        _phenomeEvaluator.Indexes = indexes;
+            //        FitnessInfo fitnessInfo = _phenomeEvaluator.Evaluate(phenome);
+            //        genome.EvaluationInfo.SetFitness((genome.EvaluationInfo.Fitness + fitnessInfo._fitness) / 2);
+            //        genome.EvaluationInfo.SetEvalFitness(fitnessInfo._evalFitness);
+            //        genome.EvaluationInfo.AuxFitnessArr = fitnessInfo._auxFitnessArr;
+            //    }
+            //});
+            //flag = true;
         }
 
         private List<int> getIndexes(Dataset dataset, double subSample)
