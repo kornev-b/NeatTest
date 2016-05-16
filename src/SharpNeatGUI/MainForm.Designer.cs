@@ -162,6 +162,10 @@
             this.btnCopyLogToClipboard = new System.Windows.Forms.Button();
             this.lbxLog = new System.Windows.Forms.ListBox();
             this.populationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.checkBoxL2 = new System.Windows.Forms.CheckBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.txtL2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -180,6 +184,7 @@
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -988,6 +993,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.groupBox3);
             this.tabPage3.Controls.Add(this.groupBox2);
             this.tabPage3.Controls.Add(this.groupBox1);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -1431,6 +1437,48 @@
             this.populationToolStripMenuItem.Name = "populationToolStripMenuItem";
             this.populationToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox3.Controls.Add(this.checkBoxL2);
+            this.groupBox3.Controls.Add(this.label31);
+            this.groupBox3.Controls.Add(this.txtL2);
+            this.groupBox3.Location = new System.Drawing.Point(8, 150);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(247, 88);
+            this.groupBox3.TabIndex = 19;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Regularization penalty (L2)";
+            // 
+            // checkBoxL2
+            // 
+            this.checkBoxL2.AutoSize = true;
+            this.checkBoxL2.Location = new System.Drawing.Point(6, 19);
+            this.checkBoxL2.Name = "checkBoxL2";
+            this.checkBoxL2.Size = new System.Drawing.Size(65, 17);
+            this.checkBoxL2.TabIndex = 58;
+            this.checkBoxL2.Text = "Enabled";
+            this.checkBoxL2.UseVisualStyleBackColor = true;
+            this.checkBoxL2.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(56, 50);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(57, 13);
+            this.label31.TabIndex = 57;
+            this.label31.Text = "Coefficient";
+            // 
+            // txtL2
+            // 
+            this.txtL2.Enabled = false;
+            this.txtL2.Location = new System.Drawing.Point(6, 47);
+            this.txtL2.Name = "txtL2";
+            this.txtL2.Size = new System.Drawing.Size(48, 20);
+            this.txtL2.TabIndex = 56;
+            this.txtL2.Text = "0.1";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1469,6 +1517,8 @@
             this.groupBox1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1608,5 +1658,9 @@
         private System.Windows.Forms.TextBox txtInterleavedSubsamplingStart;
         private System.Windows.Forms.TextBox txtInterleavedSubsamplingCross;
         private System.Windows.Forms.CheckBox checkBoxDropoutEnabled;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox checkBoxL2;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.TextBox txtL2;
     }
 }

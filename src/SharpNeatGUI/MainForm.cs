@@ -335,6 +335,8 @@ namespace SharpNeatGUI
                 overfittingParams.interleavedStartSubsample = ParseDouble(txtInterleavedSubsamplingStart, 1);
                 overfittingParams.interleavedCrossSubsample = ParseDouble(txtInterleavedSubsamplingCross, 0.2);
                 overfittingParams.dropoutEnabled = checkBoxDropoutEnabled.Checked;
+                overfittingParams.l2enabled = checkBoxL2.Checked;
+                overfittingParams.l2 = ParseDouble(txtL2, 0.1);
             }
         }
 
@@ -1790,6 +1792,11 @@ namespace SharpNeatGUI
             txtInputDropout.Enabled = checkBoxDropoutEnabled.Checked;
             txtDropoutHidden.Enabled = checkBoxDropoutEnabled.Checked;
             txtDropoutTrigger.Enabled = checkBoxDropoutEnabled.Checked;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            txtL2.Enabled = checkBoxL2.Checked;
         }
     }
 }
