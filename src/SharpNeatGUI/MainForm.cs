@@ -1778,5 +1778,18 @@ namespace SharpNeatGUI
         }
 
         #endregion
+
+        private void checkBoxInterleavedSubsample_CheckedChanged(object sender, EventArgs e)
+        {
+            txtInterleavedSubsamplingStart.Enabled = checkBoxInterleavedSubsample.Checked;
+            txtInterleavedSubsamplingCross.Enabled = checkBoxInterleavedSubsample.Checked;
+        }
+
+        private void checkBoxDropoutEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            txtInputDropout.Enabled = checkBoxDropoutEnabled.Checked;
+            txtDropoutHidden.Enabled = checkBoxDropoutEnabled.Checked;
+            txtDropoutTrigger.Enabled = checkBoxDropoutEnabled.Checked;
+        }
     }
 }

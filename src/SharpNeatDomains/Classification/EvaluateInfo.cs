@@ -14,6 +14,12 @@ namespace SharpNeat.Domains.Classification
     /// </summary>
     public class EvaluateInfo
     {
+        public enum Metric
+        {
+            AUC,
+            LOGLOSS
+        }
+
         public int punishment = 1;
         public double auc;
         public double[][] probabilities;
@@ -33,6 +39,15 @@ namespace SharpNeat.Domains.Classification
         ///Predicted negative and expected negative
         /// </summary>
         public double TN;
+        public double logloss;
+        public Metric _metric = Metric.AUC;
+
+        public EvaluateInfo() {}
+
+        public EvaluateInfo(Metric metric)
+        {
+            _metric = metric;
+        }
 
         public int CorrectlyClassified;
         public int IncorrectlyClassified;

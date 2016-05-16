@@ -120,6 +120,7 @@
             this.label30 = new System.Windows.Forms.Label();
             this.txtInterleavedSubsamplingStart = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxDropoutEnabled = new System.Windows.Forms.CheckBox();
             this.label22 = new System.Windows.Forms.Label();
             this.txtInputDropout = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
@@ -161,7 +162,6 @@
             this.btnCopyLogToClipboard = new System.Windows.Forms.Button();
             this.lbxLog = new System.Windows.Forms.ListBox();
             this.populationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkBoxDropoutEnabled = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -1031,6 +1031,7 @@
             this.checkBoxInterleavedSubsample.TabIndex = 58;
             this.checkBoxInterleavedSubsample.Text = "Interleaved subsampling";
             this.checkBoxInterleavedSubsample.UseVisualStyleBackColor = true;
+            this.checkBoxInterleavedSubsample.CheckedChanged += new System.EventHandler(this.checkBoxInterleavedSubsample_CheckedChanged);
             // 
             // label24
             // 
@@ -1085,6 +1086,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Dropout";
             // 
+            // checkBoxDropoutEnabled
+            // 
+            this.checkBoxDropoutEnabled.AutoSize = true;
+            this.checkBoxDropoutEnabled.Location = new System.Drawing.Point(6, 19);
+            this.checkBoxDropoutEnabled.Name = "checkBoxDropoutEnabled";
+            this.checkBoxDropoutEnabled.Size = new System.Drawing.Size(65, 17);
+            this.checkBoxDropoutEnabled.TabIndex = 59;
+            this.checkBoxDropoutEnabled.Text = "Enabled";
+            this.checkBoxDropoutEnabled.UseVisualStyleBackColor = true;
+            this.checkBoxDropoutEnabled.CheckedChanged += new System.EventHandler(this.checkBoxDropoutEnabled_CheckedChanged);
+            // 
             // label22
             // 
             this.label22.AutoSize = true;
@@ -1096,6 +1108,7 @@
             // 
             // txtInputDropout
             // 
+            this.txtInputDropout.Enabled = false;
             this.txtInputDropout.Location = new System.Drawing.Point(6, 42);
             this.txtInputDropout.Name = "txtInputDropout";
             this.txtInputDropout.Size = new System.Drawing.Size(48, 20);
@@ -1121,6 +1134,7 @@
             // 
             // txtDropoutTrigger
             // 
+            this.txtDropoutTrigger.Enabled = false;
             this.txtDropoutTrigger.Location = new System.Drawing.Point(6, 94);
             this.txtDropoutTrigger.Name = "txtDropoutTrigger";
             this.txtDropoutTrigger.Size = new System.Drawing.Size(48, 20);
@@ -1129,6 +1143,7 @@
             // 
             // txtDropoutHidden
             // 
+            this.txtDropoutHidden.Enabled = false;
             this.txtDropoutHidden.Location = new System.Drawing.Point(6, 68);
             this.txtDropoutHidden.Name = "txtDropoutHidden";
             this.txtDropoutHidden.Size = new System.Drawing.Size(48, 20);
@@ -1415,16 +1430,6 @@
             // 
             this.populationToolStripMenuItem.Name = "populationToolStripMenuItem";
             this.populationToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            // 
-            // checkBoxDropoutEnabled
-            // 
-            this.checkBoxDropoutEnabled.AutoSize = true;
-            this.checkBoxDropoutEnabled.Location = new System.Drawing.Point(6, 19);
-            this.checkBoxDropoutEnabled.Name = "checkBoxDropoutEnabled";
-            this.checkBoxDropoutEnabled.Size = new System.Drawing.Size(65, 17);
-            this.checkBoxDropoutEnabled.TabIndex = 59;
-            this.checkBoxDropoutEnabled.Text = "Enabled";
-            this.checkBoxDropoutEnabled.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 

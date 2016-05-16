@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace SharpNeat.Domains.Classification
     public class BinaryEvaluator
     {
         private readonly List<int> _indexes;
+        private EvaluateInfo.Metric _metric = EvaluateInfo.Metric.AUC;
         int correctlyClassified;
         int incorrectlyClassified;
 
@@ -23,12 +25,18 @@ namespace SharpNeat.Domains.Classification
             _indexes = indexes;
         }
 
+        public BinaryEvaluator(List<int> indexes, EvaluateInfo.Metric metric)
+        {
+            _indexes = indexes;
+            _metric = metric;
+        }
+
         public EvaluateInfo EvaluateTestData(IBlackBox box, Dataset dataset)
         {
-            EvaluateInfo info = new EvaluateInfo();
+            EvaluateInfo info = new EvaluateInfo(_metric);
             int samplesCount = dataset.Samples.Count;
-            double[] predictedProbs = new double[samplesCount];
-            double[] expectedProbs = new double[samplesCount];
+            List<double> predictedProbs = new List<double>(dataset.Samples.Count);
+            List<double> expectedProbs = new List<double>(dataset.Samples.Count);
 
             for (int i = 0; i < samplesCount; i++)
             {
@@ -38,8 +46,8 @@ namespace SharpNeat.Domains.Classification
                 var outputs = new double[dataset.OutputCount];
                 // activate our black box and get outputs
                 activateTest(box, inputs, outputs);
-                predictedProbs[i] = outputs[0];
-                expectedProbs[i] = expected[0];
+                predictedProbs.Add(outputs[0]);
+                expectedProbs.Add(expected[0]);
                 //calculateCorrectness(expected, outputs);
             }
             //File.WriteAllLines(@"predicted.txt", predictedProbs.Select(d => d.ToString()).ToArray());
@@ -49,6 +57,7 @@ namespace SharpNeat.Domains.Classification
             var temp = binarize(predictedProbs).Zip(expectedProbs, (x, y) => (int)x == (int)y ? 1.0 : 0.0);
             info.accuracy = temp.Average();
             info.auc = Auc(expectedProbs, predictedProbs);
+            info.logloss = logloss(expectedProbs, predictedProbs);
             //info.auc = Auc2(predictedProbs, expectedProbs);
             return info;
         }
@@ -56,9 +65,9 @@ namespace SharpNeat.Domains.Classification
         public EvaluateInfo Evaluate(IBlackBox box, Dataset dataset)
         {
             if (_indexes != null) return Evaluate2(box, dataset);
-            EvaluateInfo info = new EvaluateInfo();
-            double[] predictedProbs = new double[dataset.Samples.Count];
-            double[] expectedProbs = new double[dataset.Samples.Count];
+            EvaluateInfo info = new EvaluateInfo(_metric);
+            List<double> predictedProbs = new List<double>(dataset.Samples.Count);
+            List<double> expectedProbs = new List<double>(dataset.Samples.Count);
             for (int i = 0; i < dataset.Samples.Count; i++)
             {
                 DataRow dataRow = dataset.Samples[i];
@@ -68,26 +77,33 @@ namespace SharpNeat.Domains.Classification
                 // activate our black box and get outputs
 
                 activate(box, inputs, outputs);
-                predictedProbs[i] = outputs[0];
-                expectedProbs[i] = expected[0];
+                predictedProbs.Add(outputs[0]);
+                expectedProbs.Add(expected[0]);
                 //calculateCorrectness(expected, outputs);
             }
             //File.WriteAllLines(@"predicted.txt", predictedProbs.Select(d => d.ToString()).ToArray());
             //FastAcyclicNetwork net = (FastAcyclicNetwork) box;
             //File.WriteAllLines(@"weights.txt", net.Connections.Select(d => d._weight.ToString()).ToArray());
             //info.accuracy = (double)correctlyClassified / samplesCount;
-            var temp = binarize(predictedProbs).Zip(expectedProbs, (x, y) => (int)x == (int)y ? 1.0 : 0.0);
-            info.accuracy = temp.Average();
-            info.auc = Auc(expectedProbs, predictedProbs);
-            //info.auc = Auc2(predictedProbs, expectedProbs);
+            //var temp = binarize(predictedProbs).Zip(expectedProbs, (x, y) => (int)x == (int)y ? 1.0 : 0.0);
+            //info.accuracy = temp.Average();
+            switch (_metric)
+            {
+                case EvaluateInfo.Metric.AUC:
+                    info.auc = Auc(expectedProbs, predictedProbs);
+                    break;
+                case EvaluateInfo.Metric.LOGLOSS:
+                    info.logloss = logloss(expectedProbs, predictedProbs);
+                    break;
+            }
             return info;
         }
 
         public EvaluateInfo Evaluate2(IBlackBox box, Dataset dataset)
         {
-            EvaluateInfo info = new EvaluateInfo();
-            double[] predictedProbs = new double[_indexes.Count];
-            double[] expectedProbs = new double[_indexes.Count];
+            EvaluateInfo info = new EvaluateInfo(_metric);
+            List<double> predictedProbs = new List<double>(_indexes.Count);
+            List<double> expectedProbs = new List<double>(_indexes.Count);
             for (int i = 0; i < _indexes.Count; i++)
             {
                 var index = _indexes[i];
@@ -98,18 +114,25 @@ namespace SharpNeat.Domains.Classification
                 // activate our black box and get outputs
 
                 activate(box, inputs, outputs);
-                predictedProbs[i] = outputs[0];
-                expectedProbs[i] = expected[0];
+                predictedProbs.Add(outputs[0]);
+                expectedProbs.Add(expected[0]);
                 //calculateCorrectness(expected, outputs);
             }
             //File.WriteAllLines(@"predicted.txt", predictedProbs.Select(d => d.ToString()).ToArray());
             //FastAcyclicNetwork net = (FastAcyclicNetwork) box;
             //File.WriteAllLines(@"weights.txt", net.Connections.Select(d => d._weight.ToString()).ToArray());
             //info.accuracy = (double)correctlyClassified / samplesCount;
-            var temp = binarize(predictedProbs).Zip(expectedProbs, (x, y) => (int) x == (int) y ? 1.0 : 0.0);
-            info.accuracy = temp.Average();
-            info.auc = Auc(expectedProbs, predictedProbs);
-            //info.auc = Auc2(predictedProbs, expectedProbs);
+            //var temp = binarize(predictedProbs).Zip(expectedProbs, (x, y) => (int) x == (int) y ? 1.0 : 0.0);
+            //info.accuracy = temp.Average();
+            switch (_metric)
+            {
+                case EvaluateInfo.Metric.AUC:
+                    info.auc = Auc(expectedProbs, predictedProbs);
+                    break;
+                case EvaluateInfo.Metric.LOGLOSS:
+                    info.logloss = logloss(expectedProbs, predictedProbs);
+                    break;
+            }
             return info;
         }
 
@@ -141,7 +164,34 @@ namespace SharpNeat.Domains.Classification
             return outputs;
         }
 
-        public static double Auc(double[] a, double[] p)
+        /// <summary>
+        /// https://www.kaggle.com/wiki/LogarithmicLoss
+        /// </summary>
+        /// <param name="actual"></param>
+        /// <param name="predicted"></param>
+        /// <returns></returns>
+        public double logloss(List<double> actual, List<double> predicted)
+        {
+            double epsilon = 1e-15;
+            double maxBound = 1 - epsilon;
+            predicted = predicted.Select(x => Math.Max(epsilon, x)).ToList();
+            predicted = predicted.Select(x => Math.Min(maxBound, x)).ToList();
+            //predicted.ForEach(x => Math.Max(epsilon, x));
+            //predicted.ForEach(x => Math.Min(maxBound, x));
+            double ll = 0;
+            //Debug.Assert(actual.);
+            for (int i = 0; i < actual.Count; i++)
+            {
+                double fixedPred = predicted[i];
+                //if (fixedPred <= 0) fixedPred = epsilon;
+                //if (fixedPred == 1) fixedPred = 1 - epsilon;
+                ll += actual[i]*Math.Log(fixedPred) + (1 - actual[i])*Math.Log(1 - fixedPred);
+            }
+            ll = ll*-1.0/actual.Count;
+            return ll;
+        }
+
+        public static double Auc(List<double> a, List<double> p)
         {
             // AUC requires int array as dependent
 
@@ -196,10 +246,10 @@ namespace SharpNeat.Domains.Classification
             }
         }
 
-        private double[] binarize(double[] values)
+        private double[] binarize(List<double> values)
         {
-            double[] result = new double[values.Length];
-            for (int i = 0; i < values.Length; i++)
+            double[] result = new double[values.Count];
+            for (int i = 0; i < values.Count; i++)
             {
                 result[i] = binarize(values[i]);
             }

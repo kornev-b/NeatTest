@@ -18,9 +18,9 @@ using SharpNeat.Network;
 using SharpNeat.Network.ActivationFunctions.Bipolar;
 using SharpNeat.SpeciationStrategies;
 
-namespace SharpNeat.Domains.Classification.dota2
+namespace SharpNeat.Domains.Classification.Koby
 {
-    class Dota2Experiment : OverfittingExperiment
+    class KobyExperiment : OverfittingExperiment
     {
         private const int SEED = 24;
         NeatEvolutionAlgorithmParameters _eaParams;
@@ -54,7 +54,7 @@ namespace SharpNeat.Domains.Classification.dota2
 
         public int InputCount
         {
-            get { return 113; }
+            get { return 137; }
         }
 
         public string Name
@@ -134,24 +134,24 @@ namespace SharpNeat.Domains.Classification.dota2
             IComplexityRegulationStrategy complexityRegulationStrategy = ExperimentUtils.CreateComplexityRegulationStrategy(_complexityRegulationStr, _complexityThreshold);
 
             // Create IBlackBox evaluator.
-            Dota2BlackBoxEvaluator evaluator = new Dota2BlackBoxEvaluator();
-            Dota2DataProvider dataProvider = new Dota2DataProvider();
+            KobyBlackBoxEvaluator evaluator = new KobyBlackBoxEvaluator();
+            KobyDataProvider dataProvider = new KobyDataProvider();
             evaluator.DataProvider = dataProvider;
             evaluator.Fitness = _fitness;
             evaluator._overfittingParams = _overfittingParams;
             dataProvider.getData();
             dataProvider.getEvalData();
             // Create the evolution algorithm.
-            Dota2NeatEvolutionAlgorithm ea = new Dota2NeatEvolutionAlgorithm(dataProvider,_eaParams, speciationStrategy, complexityRegulationStrategy);
+            KobyNeatEvolutionAlgorithm ea = new KobyNeatEvolutionAlgorithm(dataProvider,_eaParams, speciationStrategy, complexityRegulationStrategy);
             //ea.Seed(SEED);
-            File.WriteAllText("na_see.txt", "" + ea.UsedSeed);
+            File.WriteAllText("na_seed.txt", "" + ea.UsedSeed);
             // Create genome decoder.
             IGenomeDecoder<NeatGenome, IBlackBox> genomeDecoder = CreateGenomeDecoder();
 
             // Create a genome list evaluator. This packages up the genome decoder with the genome evaluator.
-            Dota2GenomeListEvaluator<NeatGenome> innerEvaluator = 
+            KobyGenomeListEvaluator<NeatGenome> innerEvaluator = 
                 //new ParallelGenomeListEvaluator<NeatGenome,IBlackBox>(genomeDecoder, evaluator, _parallelOptions, true);
-                new Dota2GenomeListEvaluator<NeatGenome>(genomeDecoder, evaluator, _parallelOptions, true, dataProvider);
+                new KobyGenomeListEvaluator<NeatGenome>(genomeDecoder, evaluator, _parallelOptions, true, dataProvider);
             innerEvaluator._overfittingParams = _overfittingParams;
 
             // Wrap the list evaluator in a 'selective' evaulator that will only evaluate new genomes. That is, we skip re-evaluating any genomes
@@ -173,7 +173,7 @@ namespace SharpNeat.Domains.Classification.dota2
 
         public IGenomeFactory<NeatGenome> CreateGenomeFactory()
         {
-            Dota2NeatGenomeFactory factory = new Dota2NeatGenomeFactory(InputCount, OutputCount, _neatGenomeParams);
+            KobyNeatGenomeFactory factory = new KobyNeatGenomeFactory(InputCount, OutputCount, _neatGenomeParams);
             //factory.Seed(SEED);
             File.WriteAllText("seed_facroty.txt", ""+factory.Rng.seed);
             return factory;

@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using SharpNeat.Core;
 using SharpNeat.Phenomes;
-using SharpNeat.Phenomes.NeuralNets;
 
-namespace SharpNeat.Domains.Classification.dota2
+namespace SharpNeat.Domains.Classification.Koby
 {
-    public class Dota2BlackBoxEvaluator : IPhenomeEvaluator<IBlackBox>
+    public class KobyBlackBoxEvaluator : IPhenomeEvaluator<IBlackBox>
     {
         ulong _evalCount;
         bool _stopConditionSatisfied;
@@ -17,7 +16,7 @@ namespace SharpNeat.Domains.Classification.dota2
         public List<int> Indexes { get; set; }
         public OverfittingParams _overfittingParams = new OverfittingParams();
 
-        public Dota2BlackBoxEvaluator()
+        public KobyBlackBoxEvaluator()
         {
             Fitness = Fitness.ACCURACY;
         }
@@ -38,33 +37,20 @@ namespace SharpNeat.Domains.Classification.dota2
 
         public FitnessInfo Evaluate(IBlackBox phenome)
         {
-            BinaryEvaluator binaryEvaluator = new BinaryEvaluator(Indexes);
+            BinaryEvaluator binaryEvaluator = new BinaryEvaluator(Indexes, EvaluateInfo.Metric.LOGLOSS);
             binaryEvaluator._overfittingParams = _overfittingParams;
             _evalCount++;
             var dataset = DataProvider.getData();
             EvaluateInfo info = binaryEvaluator.Evaluate(phenome, dataset);
-            //regularize(info, phenome);
-            FastAcyclicNetwork fan = (FastAcyclicNetwork)phenome;
-            if (fan.LayersInfo.Length > 2) info.auc -= 0.1;
-            //EvaluateInfo evaInfo = binaryEvaluator.EvaluateTestData(phenome, evaDataset);
-            if (info.auc >= AcceptedAccuracy)
+            if (info.logloss == 0)
             {
                 _stopConditionSatisfied = true;
+                return new FitnessInfo(info.logloss, info.logloss);
             }
+            info.logloss = 1/info.logloss;
+            //EvaluateInfo evaInfo = binaryEvaluator.EvaluateTestData(phenome, evaDataset);
             
-            return new FitnessInfo(info.auc, info.auc);
-        }
-
-        private void regularize(EvaluateInfo info, IBlackBox phenome)
-        {
-            FastAcyclicNetwork fan = (FastAcyclicNetwork) phenome;
-            double decay = 0;
-            foreach (var con in fan.Connections)
-            {
-                decay += Math.Pow(con._weight, 2);
-            }
-            decay = decay*0.01/(2*fan.Connections.Length);
-            info.auc -= decay;
+            return new FitnessInfo(info.logloss, info.logloss);
         }
 
         public void Reset()

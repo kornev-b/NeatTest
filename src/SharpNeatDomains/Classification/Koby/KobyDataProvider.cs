@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SharpNeat.Domains.Classification.dota2
+namespace SharpNeat.Domains.Classification.Koby
 {
-    public class Dota2DataProvider : DataProvider
+    public class KobyDataProvider : DataProvider
     {
         protected override DataRow parseDataRow(string[] fields)
         {
@@ -24,12 +24,12 @@ namespace SharpNeat.Domains.Classification.dota2
 
         protected override string assertDelimeter() => ",";
 
-        protected override int assertInputsCount() => 113;
+        protected override int assertInputsCount() => 137;
 
         protected override int assertOutputsCount() => 1;
 
-        protected override string assertFileName() => @"..\..\..\datasets\dota2\dota_train.csv";
+        protected override string assertFileName() => @"..\..\..\datasets\koby\train.csv";
 
-        protected override string assertValidationFileName() => @"..\..\..\datasets\dota2\dota_test.csv";
+        protected override string assertValidationFileName() => @"..\..\..\datasets\koby\test.csv";
     }
 }

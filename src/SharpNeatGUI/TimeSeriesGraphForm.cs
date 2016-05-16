@@ -79,6 +79,8 @@ namespace SharpNeatGUI
                 ppl.Clear();
             }
 
+            data.Clear();
+
             // Reconnect.
             _ea = ea;
             _ea.UpdateEvent += new EventHandler(_ea_UpdateEvent);

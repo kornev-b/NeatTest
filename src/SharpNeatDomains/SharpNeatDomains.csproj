@@ -70,6 +70,12 @@
     <Compile Include="Classification\Adult\AdultDataProvider.cs" />
     <Compile Include="Classification\Adult\AdultExperiment.cs" />
     <Compile Include="Classification\BinaryEvaluator.cs" />
+    <Compile Include="Classification\Koby\KobyBlackBoxEvaluator.cs" />
+    <Compile Include="Classification\Koby\KobyDataProvider.cs" />
+    <Compile Include="Classification\Koby\KobyExperiment.cs" />
+    <Compile Include="Classification\Koby\KobyGenomeListEvaluator.cs" />
+    <Compile Include="Classification\Koby\KobyNeatEvolutionAlgorithm.cs" />
+    <Compile Include="Classification\Koby\KobyNeatGenomeFactory.cs" />
     <Compile Include="Classification\dota2\Dota2BlackBoxEvaluator.cs" />
     <Compile Include="Classification\dota2\Dota2DataProvider.cs" />
     <Compile Include="Classification\dota2\Dota2Experiment.cs" />
