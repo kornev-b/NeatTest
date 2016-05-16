@@ -16,5 +16,8 @@ namespace SharpNeat.Domains.Classification
         public bool interleaved;
         public double interleavedStartSubsample = 1;
         public double interleavedCrossSubsample = 0.2;
+
+        public double l2 = 0.1;
+        public bool l2enabled;
     }
 }

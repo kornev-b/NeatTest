@@ -43,7 +43,8 @@ namespace SharpNeat.Domains.Classification.dota2
             _evalCount++;
             var dataset = DataProvider.getData();
             EvaluateInfo info = binaryEvaluator.Evaluate(phenome, dataset);
-            //regularize(info, phenome);
+            if (_overfittingParams.l2enabled)
+                regularize(info, phenome);
             FastAcyclicNetwork fan = (FastAcyclicNetwork)phenome;
             //if (fan.LayersInfo.Length > 2) info.auc -= 0.1;
             //EvaluateInfo evaInfo = binaryEvaluator.EvaluateTestData(phenome, evaDataset);
@@ -63,7 +64,7 @@ namespace SharpNeat.Domains.Classification.dota2
             {
                 decay += Math.Pow(con._weight, 2);
             }
-            decay = decay*0.01/(2*fan.Connections.Length);
+            decay = decay*_overfittingParams.l2/(2*fan.Connections.Length);
             info.auc -= decay;
         }
 
