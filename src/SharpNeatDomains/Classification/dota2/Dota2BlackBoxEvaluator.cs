@@ -48,6 +48,8 @@ namespace SharpNeat.Domains.Classification.dota2
             FastAcyclicNetwork fan = (FastAcyclicNetwork)phenome;
             //if (fan.LayersInfo.Length > 2) info.auc -= 0.1;
             //EvaluateInfo evaInfo = binaryEvaluator.EvaluateTestData(phenome, evaDataset);
+            if (info.auc < 0)
+                info.auc = 0;
             if (info.auc >= AcceptedAccuracy)
             {
                 _stopConditionSatisfied = true;

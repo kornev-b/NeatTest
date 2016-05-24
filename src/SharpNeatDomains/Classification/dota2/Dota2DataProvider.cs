@@ -24,7 +24,7 @@ namespace SharpNeat.Domains.Classification.dota2
 
         protected override string assertDelimeter() => ",";
 
-        protected override int assertInputsCount() => 140;
+        protected override int assertInputsCount() => 76;
 
         protected override int assertOutputsCount() => 1;
 

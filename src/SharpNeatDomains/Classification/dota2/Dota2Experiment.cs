@@ -54,7 +54,7 @@ namespace SharpNeat.Domains.Classification.dota2
 
         public int InputCount
         {
-            get { return 140; }
+            get { return 76; }
         }
 
         public string Name

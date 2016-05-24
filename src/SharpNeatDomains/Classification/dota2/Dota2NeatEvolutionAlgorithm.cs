@@ -16,8 +16,8 @@ namespace SharpNeat.Domains.Classification.dota2
 {
     public class Dota2NeatEvolutionAlgorithm:NeatEvolutionAlgorithm<NeatGenome>
     {
-        private static double bestFitness = 0;
-        private const double FITNESS_THRESHOLD = 0.735;
+        private double bestFitness;
+        private const double FITNESS_THRESHOLD = 0.5;
         private readonly Dota2DataProvider _dataProvider;
         private List<int> generationTrack = new List<int>(new int[]{0, 50, 100, 500});
         XmlWriterSettings _xwSettings = new XmlWriterSettings();
