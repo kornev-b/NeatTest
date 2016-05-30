@@ -28,8 +28,8 @@ namespace SharpNeat.Domains.Classification.Taxi
 
         protected override int assertOutputsCount() => 1;
 
-        protected override string assertFileName() => @"..\..\..\datasets\taxi\taxi_train.csv";
+        protected override string assertFileName() => @"..\..\..\datasets\taxi\taxi-train.csv";
 
-        protected override string assertValidationFileName() => @"..\..\..\datasets\taxi\taxi_test.csv";
+        protected override string assertValidationFileName() => @"..\..\..\datasets\taxi\taxi-test.csv";
     }
 }

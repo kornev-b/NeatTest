@@ -16,6 +16,8 @@ namespace SharpNeat.Domains.Classification.Taxi
 {
     public class TaxiNeatEvolutionAlgorithm:NeatEvolutionAlgorithm<NeatGenome>
     {
+        private const double FITNESS_THRESHOLD = 0.5;
+        private double bestFitness;
         private readonly DataProvider _dataProvider;
         private List<int> generationTrack = new List<int>(new int[]{0, 50, 100, 500});
         XmlWriterSettings _xwSettings = new XmlWriterSettings();
@@ -40,22 +42,16 @@ namespace SharpNeat.Domains.Classification.Taxi
 
             var eval = binaryEvaluator.EvaluateTestData((IBlackBox) _currentBestGenome.CachedPhenome, _dataProvider.getEvalData());
             _currentBestGenome.EvaluationInfo.SetEvalFitness(eval.auc);
-            //uint generation = _currentBestGenome.BirthGeneration;
-            //if (generationTrack.Count > 0 && generation >= generationTrack[0])
-            //{
-            //    generationTrack.RemoveAt(0);
-            //    predictProba(_currentBestGenome);
-            //    saveChampion();
-            //} else if (generationTrack.Count == 0 && generation >= 1000)
-            //{
-            //    predictProba(_currentBestGenome);
-            //    saveChampion();
-            //}
+            if (eval.auc > FITNESS_THRESHOLD && eval.auc > bestFitness)
+            {
+                bestFitness = eval.auc;
+                saveChampion();
+            }
         }
 
         private void saveChampion()
         {
-            string spath = "champ_" + _currentBestGenome.BirthGeneration + ".gnm.xml";
+            string spath = "champ.gnm.xml";
             
             // Save genome to xml file.
             using (XmlWriter xw = XmlWriter.Create(spath, _xwSettings))
