@@ -246,16 +246,16 @@ namespace SharpNeat.Phenomes.NeuralNets
                 //    }
                 //}
                 for (; nodeIdx < layerInfo._endNodeIdx; nodeIdx++) {
-                    //if (nodeIdx < _activationArr.Length - _outputNodeCount)
-                    //{
-                    //    _activationArr[nodeIdx] = PReLU.__DefaultInstance.Calculate(_activationArr[nodeIdx], _nodeAuxArgsArr[nodeIdx]);
-                    //}
-                    //else
-                    //{
-                    //    _activationArr[nodeIdx] = _nodeActivationFnArr[nodeIdx].Calculate(_activationArr[nodeIdx], _nodeAuxArgsArr[nodeIdx]);
-                    //    //_activationArr[nodeIdx] = Math.Exp(_activationArr[nodeIdx])/softmax_sum;
-                    //}
-                    _activationArr[nodeIdx] = _nodeActivationFnArr[nodeIdx].Calculate(_activationArr[nodeIdx], _nodeAuxArgsArr[nodeIdx]);
+                    if (nodeIdx < _activationArr.Length - _outputNodeCount)
+                    {
+                        _activationArr[nodeIdx] = ReLU.__DefaultInstance.Calculate(_activationArr[nodeIdx], _nodeAuxArgsArr[nodeIdx]);
+                    }
+                    else
+                    {
+                        _activationArr[nodeIdx] = _nodeActivationFnArr[nodeIdx].Calculate(_activationArr[nodeIdx], _nodeAuxArgsArr[nodeIdx]);
+                        //_activationArr[nodeIdx] = Math.Exp(_activationArr[nodeIdx])/softmax_sum;
+                    }
+                    //_activationArr[nodeIdx] = _nodeActivationFnArr[nodeIdx].Calculate(_activationArr[nodeIdx], _nodeAuxArgsArr[nodeIdx]);
                 }
             }
         }
