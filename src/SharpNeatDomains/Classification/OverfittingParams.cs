@@ -19,5 +19,8 @@ namespace SharpNeat.Domains.Classification
 
         public double l2 = 0.1;
         public bool l2enabled;
+
+        public double labelSmoothing;
+        public bool labelSmoothingEnabled;
     }
 }

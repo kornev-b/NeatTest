@@ -8,6 +8,7 @@ namespace SharpNeat.Domains
 {
     public abstract class DataProvider
     {
+        private readonly OverfittingParams _overfittingParams;
         private volatile int ms;
         protected int InputsCount { get; set; }
         protected int OutputsCount { get; set; }
@@ -19,6 +20,11 @@ namespace SharpNeat.Domains
         {
             InputsCount = assertInputsCount();
             OutputsCount = assertOutputsCount();
+        }
+
+        public DataProvider(OverfittingParams overfittingParams)
+        {
+            _overfittingParams = overfittingParams;
         }
 
         public virtual Dataset getData()
@@ -38,6 +44,16 @@ namespace SharpNeat.Domains
                 {
                     string[] fields = parser.ReadFields();
                     DataRow dataRow = parseDataRow(fields);
+                    if (_overfittingParams != null &&_overfittingParams.labelSmoothingEnabled)
+                    {
+                        for (int i = 0; i < dataRow.Outputs.Count; i++)
+                        {
+                            double output = dataRow.Outputs[i];
+                            if (output > 0) output -= _overfittingParams.labelSmoothing;
+                            else output += _overfittingParams.labelSmoothing;
+                            dataRow.Outputs[i] = output;
+                        }
+                    }
                     if (dataRow == null)
                     {
                         continue;

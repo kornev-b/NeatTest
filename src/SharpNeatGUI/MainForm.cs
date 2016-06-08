@@ -337,6 +337,8 @@ namespace SharpNeatGUI
                 overfittingParams.dropoutEnabled = checkBoxDropoutEnabled.Checked;
                 overfittingParams.l2enabled = checkBoxL2.Checked;
                 overfittingParams.l2 = ParseDouble(txtL2, 0.1);
+                overfittingParams.labelSmoothingEnabled = checkBoxLabelSmoothing.Checked;
+                overfittingParams.labelSmoothing = ParseDouble(txtLabelSmoothing, 0.0001);
             }
         }
 
@@ -1797,6 +1799,11 @@ namespace SharpNeatGUI
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             txtL2.Enabled = checkBoxL2.Checked;
+        }
+
+        private void checkBoxLabelSmoothing_CheckedChanged(object sender, EventArgs e)
+        {
+            txtLabelSmoothing.Enabled = checkBoxLabelSmoothing.Checked;
         }
     }
 }

@@ -24,12 +24,12 @@ namespace SharpNeat.Domains.Classification.dota2
 
         protected override string assertDelimeter() => ",";
 
-        protected override int assertInputsCount() => 80;
+        protected override int assertInputsCount() => 140;
 
         protected override int assertOutputsCount() => 1;
 
-        protected override string assertFileName() => @"..\..\..\datasets\dota2\dota_train.csv";
+        protected override string assertFileName() => @"..\..\..\..\datasets\dota2\dota_train.csv";
 
-        protected override string assertValidationFileName() => @"..\..\..\datasets\dota2\dota_test.csv";
+        protected override string assertValidationFileName() => @"..\..\..\..\datasets\dota2\dota_test.csv";
     }
 }

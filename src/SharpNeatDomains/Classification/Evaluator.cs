@@ -36,7 +36,8 @@ namespace SharpNeat.Domains.Classification
                 var outputs = new double[dataset.OutputCount];
                 // activate our black box and get outputs
                 activate(box, inputs, outputs);
-                calculateCorrectness(expected, outputs);
+                outputs = softmax(outputs);
+                //calculateCorrectness(expected, outputs);
                 //predicions[i] = outputs;
                 // apply to each pair of outputs array element and expected array element
                 // a function that is determined what kind of ResultType
@@ -79,6 +80,21 @@ namespace SharpNeat.Domains.Classification
             info.Calculate();
 
             return info;
+        }
+
+        private double[] softmax(double[] outputs)
+        {
+            double[] result = new double[outputs.Length];
+            double sum = 0;
+            for (int j = 0; j < result.Length; j++)
+            {
+                sum += Math.Exp(outputs[j]);
+            }
+            for (int i = 0; i < result.Length; i++)
+            {
+                result[i] = Math.Exp(outputs[i])/sum;
+            }
+            return result;
         }
 
         /*private void calcPunishment()

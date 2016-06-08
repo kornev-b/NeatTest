@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SharpNeat.Core;
 using SharpNeat.Phenomes;
+using SharpNeat.Phenomes.NeuralNets;
 
 namespace SharpNeat.Domains.Classification.Koby
 {
@@ -42,6 +43,8 @@ namespace SharpNeat.Domains.Classification.Koby
             _evalCount++;
             var dataset = DataProvider.getData();
             EvaluateInfo info = binaryEvaluator.Evaluate(phenome, dataset);
+            if (_overfittingParams.l2enabled)
+                regularize(info, phenome);
             if (info.logloss == 0)
             {
                 _stopConditionSatisfied = true;
@@ -51,6 +54,18 @@ namespace SharpNeat.Domains.Classification.Koby
             //EvaluateInfo evaInfo = binaryEvaluator.EvaluateTestData(phenome, evaDataset);
             
             return new FitnessInfo(info.logloss, info.logloss);
+        }
+
+        private void regularize(EvaluateInfo info, IBlackBox phenome)
+        {
+            FastAcyclicNetwork fan = (FastAcyclicNetwork)phenome;
+            double decay = 0;
+            foreach (var con in fan.Connections)
+            {
+                decay += Math.Pow(con._weight, 2);
+            }
+            decay = decay * _overfittingParams.l2 / (2 * fan.Connections.Length);
+            info.auc -= decay;
         }
 
         public void Reset()

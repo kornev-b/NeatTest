@@ -135,7 +135,7 @@ namespace SharpNeat.Domains.Classification.Koby
 
             // Create IBlackBox evaluator.
             KobyBlackBoxEvaluator evaluator = new KobyBlackBoxEvaluator();
-            KobyDataProvider dataProvider = new KobyDataProvider();
+            KobyDataProvider dataProvider = new KobyDataProvider(_overfittingParams);
             evaluator.DataProvider = dataProvider;
             evaluator.Fitness = _fitness;
             evaluator._overfittingParams = _overfittingParams;

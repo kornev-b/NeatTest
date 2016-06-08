@@ -7,6 +7,11 @@ namespace SharpNeat.Domains.Classification.Koby
 {
     public class KobyDataProvider : DataProvider
     {
+
+        public KobyDataProvider() :base() { }
+
+        public KobyDataProvider(OverfittingParams overfittingParams) : base(overfittingParams) { }
+
         protected override DataRow parseDataRow(string[] fields)
         {
             DataRow row = new DataRow();
@@ -28,8 +33,8 @@ namespace SharpNeat.Domains.Classification.Koby
 
         protected override int assertOutputsCount() => 1;
 
-        protected override string assertFileName() => @"..\..\..\datasets\koby\train.csv";
+        protected override string assertFileName() => @"..\..\..\..\datasets\koby\train.csv";
 
-        protected override string assertValidationFileName() => @"..\..\..\datasets\koby\test.csv";
+        protected override string assertValidationFileName() => @"..\..\..\..\datasets\koby\test.csv";
     }
 }
